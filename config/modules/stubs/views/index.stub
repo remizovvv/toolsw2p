@@ -1,0 +1,5 @@
+@extends('$LOWER_NAME$::layouts.module')
+
+@section('content')
+    <h1>Module starter page: {!! config('$LOWER_NAME$.name') !!}</h1>
+@stop

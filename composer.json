@@ -1,0 +1,29 @@
+{
+    "name": "omadonex/toolsw2p",
+    "description": "Different utilities for web2print",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yuriy Arkhipov",
+            "email": "omadonex@yandex.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "illuminate/support": "5.5.*",
+        "illuminate/console": "5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omadonex\\ToolsW2p\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Omadonex\\ToolsW2p\\Providers\\ToolsW2pServiceProvider"
+            ]
+        }
+    }
+}
