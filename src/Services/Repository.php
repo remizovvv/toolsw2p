@@ -31,6 +31,6 @@ class Repository implements IRepository
     {
         $qb = $this->model->query();
 
-        return $qb->all();
+        return $qb->get();
     }
 }
