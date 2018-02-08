@@ -12,5 +12,5 @@ interface IRepository
 {
     public function find($id, $relations = []);
 
-    public function all($relations = []);
+    public function all($relations = [], $limit = null, $offset = null);
 }
