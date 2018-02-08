@@ -12,16 +12,12 @@ class Repository implements IRepository
 {
     protected $model;
 
-    public function find($id, $relations = [])
+    public function find($id, $relations = [], $fieldsStr = null)
     {
         $qb = $this->model->query();
 
         if (!empty($relations)) {
-            $qb = $qb->with($relations);
-        }
-
-        if (is_array($id)) {
-            return $qb->whereIn('id', $id)->get();
+            $qb->with($relations);
         }
 
         return $qb->find($id);
@@ -30,6 +26,18 @@ class Repository implements IRepository
     public function all($relations = [], $limit = null, $offset = null)
     {
         $qb = $this->model->query();
+
+        if (!empty($relations)) {
+            $qb->with($relations);
+        }
+
+        if (!is_null($limit)) {
+            $qb->limit($limit);
+        }
+
+        if (!is_null($offset)) {
+            $qb->offset($offset);
+        }
 
         return $qb->get();
     }
