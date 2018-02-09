@@ -10,7 +10,9 @@ namespace Omadonex\ToolsW2p\Interfaces;
 
 interface IRepository
 {
-    public function find($id, $relations = [], $fieldsStr = null);
+    public function find($id, $relations = []);
 
-    public function all($relations = [], $limit = null, $offset = null);
+    public function all($relations = []);
+
+    public function paginate($count, $relations = []);
 }
