@@ -14,22 +14,22 @@ trait CanBeActivatedTrait
     public function isActive()
     {
         $fieldName = $this->getActiveFieldName();
-        return $this->$fieldName;
+        return $this->$fieldName === 1;
     }
 
     public function setActive($active)
     {
         $fieldName = $this->getActiveFieldName();
-        if ($this->$fieldName != $active) {
+        if ($this->$fieldName !== $active) {
             $this->update([
                 $fieldName => $active,
             ]);
 
-            if ($active && method_exists($this, 'activePositiveAction')) {
+            if (($active === 1) && method_exists($this, 'activePositiveAction')) {
                 $this->activePositiveAction();
             }
 
-            if (!$active && method_exists($this, 'activeNegativeAction')) {
+            if (($active === 0) && method_exists($this, 'activeNegativeAction')) {
                 $this->activeNegativeAction();
             }
         }
@@ -37,12 +37,12 @@ trait CanBeActivatedTrait
 
     public function activate()
     {
-        $this->setActive(true);
+        $this->setActive(1);
     }
 
     public function deactivate()
     {
-        $this->setActive(false);
+        $this->setActive(0);
     }
 
     public function canActivate()
@@ -66,12 +66,12 @@ trait CanBeActivatedTrait
     public function scopeActive($query)
     {
         $fieldName = $this->getActiveFieldName();
-        return $query->where($fieldName, true);
+        return $query->where($fieldName, 1);
     }
 
     public function scopeNotActive($query)
     {
         $fieldName = $this->getActiveFieldName();
-        return $query->where($fieldName, false);
+        return $query->where($fieldName, 0);
     }
 }
