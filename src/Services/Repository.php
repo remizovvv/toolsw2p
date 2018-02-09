@@ -12,7 +12,7 @@ class Repository implements IRepository
 {
     protected $model;
 
-    private function attachRelations($qb, $relations = [])
+    protected function attachRelations($qb, $relations = [])
     {
         if (!empty($relations)) {
             $qb->with($relations);
