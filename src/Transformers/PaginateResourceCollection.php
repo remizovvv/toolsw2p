@@ -9,6 +9,12 @@ class PaginateResourceCollection extends ResourceCollection
 {
     use AppendsToApiResourceTrait;
 
+    public function __construct($resource, $resourceName)
+    {
+        parent::__construct($resource);
+        $this->collects = $resourceName;
+    }
+
     /**
      * Transform the resource collection into an array.
      *
