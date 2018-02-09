@@ -11,8 +11,8 @@ class PaginateResourceCollection extends ResourceCollection
 
     public function __construct($resource, $resourceName)
     {
-        parent::__construct($resource);
         $this->collects = $resourceName;
+        parent::__construct($resource);
     }
 
     /**
