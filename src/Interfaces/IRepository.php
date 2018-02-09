@@ -14,5 +14,5 @@ interface IRepository
 
     public function all($relations = []);
 
-    public function paginate($count, $relations = []);
+    public function paginate($paginateCount, $relations = []);
 }

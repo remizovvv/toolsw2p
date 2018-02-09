@@ -17,7 +17,7 @@ trait CanBeActivatedTrait
         return $this->$fieldName === 1;
     }
 
-    public function setActive($active)
+    private function setActive($active)
     {
         $fieldName = $this->getActiveFieldName();
         if ($this->$fieldName !== $active) {
@@ -73,5 +73,11 @@ trait CanBeActivatedTrait
     {
         $fieldName = $this->getActiveFieldName();
         return $query->where($fieldName, 0);
+    }
+
+    public function scopeByActive($query, $active)
+    {
+        $fieldName = $this->getActiveFieldName();
+        return $query->where($fieldName, $active);
     }
 }

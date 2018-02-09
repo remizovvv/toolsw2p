@@ -35,10 +35,10 @@ class Repository implements IRepository
         return $this->attachRelations($qb, $relations)->get();
     }
 
-    public function paginate($count, $relations = [])
+    public function paginate($paginateCount, $relations = [])
     {
         $qb = $this->model->query();
 
-        return $this->attachRelations($qb, $relations)->paginate($count);
+        return $this->attachRelations($qb, $relations)->paginate($paginateCount);
     }
 }
