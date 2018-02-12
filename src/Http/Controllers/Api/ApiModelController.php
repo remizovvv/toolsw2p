@@ -13,6 +13,7 @@ class ApiModelController extends ApiBaseController
 
     public function __construct(IRepository $repo, Request $request)
     {
+        parent::__construct($request);
         $this->repo = $repo;
         $this->relations = $this->getRelations($request, $this->repo->getAvailableRelations());
     }
