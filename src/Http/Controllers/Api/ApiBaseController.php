@@ -3,10 +3,10 @@
 namespace Omadonex\ToolsW2p\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controller;
 use Omadonex\ToolsW2p\Classes\Utils\ResponseJsonUtils;
-use Omadonex\ToolsW2p\Transformers\PaginateResourceCollection;
 
 class ApiBaseController extends Controller
 {
@@ -20,8 +20,7 @@ class ApiBaseController extends Controller
     protected function okResponse($data)
     {
         $finalData = $data;
-        if (($data instanceof AnonymousResourceCollection)
-            || ($data instanceof PaginateResourceCollection)) {
+        if (($data instanceof Resource) || ($data instanceof ResourceCollection)) {
             $finalData = $data->toResponse($this->request)->getData();
         }
         return ResponseJsonUtils::okResponse($finalData);
