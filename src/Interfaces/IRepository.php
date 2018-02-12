@@ -16,5 +16,5 @@ interface IRepository
 
     public function all($relations = true);
 
-    public function paginate($paginateCount, $relations = true);
+    public function paginate($relations = true, $paginateCount = null);
 }

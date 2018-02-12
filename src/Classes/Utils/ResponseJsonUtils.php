@@ -17,7 +17,7 @@ class ResponseJsonUtils
     {
         return response()->json([
             'status' => true,
-            'data' => $data,
+            'result' => $data,
         ], self::CODE_OK);
     }
 
@@ -25,7 +25,7 @@ class ResponseJsonUtils
     {
         return response()->json([
             'status' => false,
-            'data' => $errorMsg,
+            'result' => $errorMsg,
         ], self::CORE_ERROR);
     }
 }

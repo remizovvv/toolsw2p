@@ -33,6 +33,11 @@ class Repository implements IRepository
         return $this->model->availableRelations;
     }
 
+    protected function getPaginateCount()
+    {
+        return $this->model->paginateCount;
+    }
+
     public function find($id, $relations = true)
     {
         $qb = $this->model->query();
@@ -47,10 +52,11 @@ class Repository implements IRepository
         return $this->attachRelations($qb, $relations)->get();
     }
 
-    public function paginate($paginateCount, $relations = true)
+    public function paginate($relations = true, $paginateCount = null)
     {
         $qb = $this->model->query();
 
+        $paginateCount = is_null($paginateCount) ? $this->getPaginateCount() : $paginateCount;
         return $this->attachRelations($qb, $relations)->paginate($paginateCount);
     }
 }
