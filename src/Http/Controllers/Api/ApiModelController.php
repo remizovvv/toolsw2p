@@ -14,10 +14,17 @@ class ApiModelController extends Controller
 
     public function __construct(IRepository $repo, Request $request)
     {
-        $this->repo = $repo;
-        $this->relations = $this->getRelations($request, $this->repo->getAvailableRelations());
+        try {
+            $this->repo = $repo;
+            $this->relations = $this->getRelations($request, $this->repo->getAvailableRelations());
+        } catch (BadParameterRelationsException $e) {
+            return [
+                'status' => true,
+                'error' => $e->getMessage(),
+            ];
+        }
     }
-    
+
     protected function getRelations(Request $request, $availableRelations)
     {
         $data = $request->all();
