@@ -12,30 +12,37 @@ class Repository implements IRepository
 {
     protected $model;
 
-    protected function attachRelations($qb, $relations = [])
+    protected function attachRelations($qb, $relations)
     {
-        if (!empty($relations)) {
+        $prop = 'availableRelations';
+        if (($relations === true)
+            && property_exists(get_class($this->model), $prop)
+            && is_array($this->model->$prop)) {
+            $qb->with($this->model->$prop);
+        }
+
+        if (is_array($relations)) {
             $qb->with($relations);
         }
 
         return $qb;
     }
 
-    public function find($id, $relations = [])
+    public function find($id, $relations = true)
     {
         $qb = $this->model->query();
 
         return $this->attachRelations($qb, $relations)->find($id);
     }
 
-    public function all($relations = [])
+    public function all($relations = true)
     {
         $qb = $this->model->query();
 
         return $this->attachRelations($qb, $relations)->get();
     }
 
-    public function paginate($paginateCount, $relations = [])
+    public function paginate($paginateCount, $relations = true)
     {
         $qb = $this->model->query();
 
