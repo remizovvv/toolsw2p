@@ -28,6 +28,11 @@ class Repository implements IRepository
         return $qb;
     }
 
+    public function getAvailableRelations()
+    {
+        return $this->model->availableRelations;
+    }
+
     public function find($id, $relations = true)
     {
         $qb = $this->model->query();
