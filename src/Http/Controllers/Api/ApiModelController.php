@@ -5,9 +5,19 @@ namespace Omadonex\ToolsW2p\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Omadonex\ToolsW2p\Classes\Exceptions\BadParameterRelationsException;
+use Omadonex\ToolsW2p\Interfaces\IRepository;
 
-class ApiBaseController extends Controller
+class ApiModelController extends Controller
 {
+    protected $repo;
+    protected $relations;
+
+    public function __construct(IRepository $repo, Request $request)
+    {
+        $this->repo = $repo;
+        $this->relations = $this->getRelations($request, $this->repo->getAvailableRelations());
+    }
+    
     protected function getRelations(Request $request, $availableRelations)
     {
         $data = $request->all();
