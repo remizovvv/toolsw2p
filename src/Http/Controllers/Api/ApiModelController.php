@@ -3,11 +3,10 @@
 namespace Omadonex\ToolsW2p\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Omadonex\ToolsW2p\Classes\Exceptions\BadParameterRelationsException;
 use Omadonex\ToolsW2p\Interfaces\IRepository;
 
-class ApiModelController extends Controller
+class ApiModelController extends ApiBaseController
 {
     protected $repo;
     protected $relations;
