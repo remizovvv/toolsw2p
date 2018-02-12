@@ -4,10 +4,6 @@ namespace Omadonex\ToolsW2p\Traits;
 
 trait CanBeActivatedTrait
 {
-    protected $casts = [
-        'active' => 'boolean',
-    ];
-
     private function getActiveFieldName()
     {
         $propFieldName = 'activeFieldName';
