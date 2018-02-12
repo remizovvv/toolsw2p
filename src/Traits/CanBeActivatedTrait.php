@@ -4,6 +4,10 @@ namespace Omadonex\ToolsW2p\Traits;
 
 trait CanBeActivatedTrait
 {
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
     private function getActiveFieldName()
     {
         $propFieldName = 'activeFieldName';
@@ -14,7 +18,7 @@ trait CanBeActivatedTrait
     public function isActive()
     {
         $fieldName = $this->getActiveFieldName();
-        return $this->$fieldName === 1;
+        return $this->$fieldName;
     }
 
     private function setActive($active)
@@ -25,11 +29,11 @@ trait CanBeActivatedTrait
                 $fieldName => $active,
             ]);
 
-            if (($active === 1) && method_exists($this, 'activePositiveAction')) {
+            if ($active && method_exists($this, 'activePositiveAction')) {
                 $this->activePositiveAction();
             }
 
-            if (($active === 0) && method_exists($this, 'activeNegativeAction')) {
+            if (!$active && method_exists($this, 'activeNegativeAction')) {
                 $this->activeNegativeAction();
             }
         }
@@ -37,12 +41,12 @@ trait CanBeActivatedTrait
 
     public function activate()
     {
-        $this->setActive(1);
+        $this->setActive(true);
     }
 
     public function deactivate()
     {
-        $this->setActive(0);
+        $this->setActive(false);
     }
 
     public function canActivate()
@@ -66,13 +70,13 @@ trait CanBeActivatedTrait
     public function scopeActive($query)
     {
         $fieldName = $this->getActiveFieldName();
-        return $query->where($fieldName, 1);
+        return $query->where($fieldName, true);
     }
 
     public function scopeNotActive($query)
     {
         $fieldName = $this->getActiveFieldName();
-        return $query->where($fieldName, 0);
+        return $query->where($fieldName, false);
     }
 
     public function scopeByActive($query, $active)
