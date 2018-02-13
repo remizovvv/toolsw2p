@@ -17,7 +17,7 @@ class BadParameterRelationsException extends \Exception
         $this->availableRelations = $availableRelations;
         $relationsStr = implode(", ", $availableRelations);
         $message = "Параметр `relations` может принимать одно из следующих значений: " .
-            "true, false либо массив из любого количества элементов - $relationsStr";
+            "false | true | array ($relationsStr)";
         parent::__construct($message);
     }
 }

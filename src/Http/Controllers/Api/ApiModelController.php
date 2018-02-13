@@ -3,6 +3,7 @@
 namespace Omadonex\ToolsW2p\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Omadonex\ToolsW2p\Classes\Exceptions\BadParameterActiveException;
 use Omadonex\ToolsW2p\Classes\Exceptions\BadParameterRelationsException;
 use Omadonex\ToolsW2p\Interfaces\IRepository;
 
@@ -10,15 +11,17 @@ class ApiModelController extends ApiBaseController
 {
     protected $repo;
     protected $relations;
+    protected $active;
 
     public function __construct(IRepository $repo, Request $request)
     {
         parent::__construct($request);
         $this->repo = $repo;
-        $this->relations = $this->getRelations($request, $this->repo->getAvailableRelations());
+        $this->relations = $this->getParamRelations($request, $this->repo->getAvailableRelations());
+        $this->active = $this->getParamActive($request);
     }
 
-    protected function getRelations(Request $request, $availableRelations)
+    protected function getParamRelations(Request $request, $availableRelations)
     {
         $data = $request->all();
         if (!array_key_exists('relations', $data) || ($data['relations'] === 'true')) {
@@ -34,5 +37,23 @@ class ApiModelController extends ApiBaseController
         }
 
         throw new BadParameterRelationsException($availableRelations);
+    }
+
+    protected function getParamActive(Request $request)
+    {
+        $data = $request->all();
+        if (!array_key_exists('active', $data)) {
+            return null;
+        }
+
+        if ($data['active'] === 'true') {
+            return true;
+        }
+
+        if ($data['active'] === 'false') {
+            return false;
+        }
+
+        throw new BadParameterActiveException;
     }
 }
