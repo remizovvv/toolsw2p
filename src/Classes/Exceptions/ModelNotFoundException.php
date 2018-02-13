@@ -10,14 +10,16 @@ namespace Omadonex\ToolsW2p\Classes\Exceptions;
 
 class ModelNotFoundException extends \Exception
 {
-    protected $modelClass;
+    protected $model;
     protected $id;
 
-    public function __construct($modelClass, $id)
+    public function __construct($model, $id)
     {
-        $this->modelClass = $modelClass;
+        $this->model = $model;
         $this->id = $id;
-        $message = "Модель `$modelClass` (id: $id) не найдена";
+        $table = $model->getTable();
+        $class = get_Class($model);
+        $message = "Запись в таблице `$table` с `id`=$id не найдена (модель `$class`)";
         parent::__construct($message);
     }
 }

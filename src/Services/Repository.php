@@ -46,7 +46,7 @@ class Repository implements IRepository
         $model = $this->attachRelations($qb, $relations)->find($id);
 
         if (is_null($model)) {
-            throw new ModelNotFoundException(get_class($this->model), $id);
+            throw new ModelNotFoundException($this->model, $id);
         }
 
         return $model;
@@ -63,7 +63,6 @@ class Repository implements IRepository
     {
         $qb = $this->model->query();
 
-        $paginateCount = is_null($paginateCount) ? $this->getPaginateCount() : $paginateCount;
-        return $this->attachRelations($qb, $relations)->paginate($paginateCount);
+        return $this->attachRelations($qb, $relations)->paginate($paginateCount ?: $this->getPaginateCount());
     }
 }
