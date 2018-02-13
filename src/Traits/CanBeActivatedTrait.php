@@ -4,7 +4,7 @@ namespace Omadonex\ToolsW2p\Traits;
 
 trait CanBeActivatedTrait
 {
-    private function getActiveFieldName()
+    protected function getActiveFieldName()
     {
         $propFieldName = 'activeFieldName';
         $fieldName = property_exists($this, $propFieldName) ? $this->$propFieldName : 'active';
