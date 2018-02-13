@@ -21,7 +21,7 @@ class ApiModelController extends ApiBaseController
         $this->active = $this->getParamActive($request);
     }
 
-    protected function getParamRelations(Request $request, $availableRelations)
+    private function getParamRelations(Request $request, $availableRelations)
     {
         $data = $request->all();
         if (!array_key_exists('relations', $data) || ($data['relations'] === 'true')) {
@@ -39,7 +39,7 @@ class ApiModelController extends ApiBaseController
         throw new BadParameterRelationsException($availableRelations);
     }
 
-    protected function getParamActive(Request $request)
+    private function getParamActive(Request $request)
     {
         $data = $request->all();
         if (!array_key_exists('active', $data)) {
