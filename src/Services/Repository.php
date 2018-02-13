@@ -40,12 +40,11 @@ class Repository implements IRepository
 
     private function makeQB($relations, $active)
     {
-        if (!in_array(CanBeActivatedTrait::class, class_uses($this->model))) {
-            throw new ModelNotUsesTraitException(get_class($this->model), CanBeActivatedTrait::class);
-        }
-
         $qb = $this->model->query();
         if (!is_null($active)) {
+            if (!in_array(CanBeActivatedTrait::class, class_uses($this->model))) {
+                throw new ModelNotUsesTraitException(get_class($this->model), CanBeActivatedTrait::class);
+            }
             $qb->byActive($active);
         }
 
