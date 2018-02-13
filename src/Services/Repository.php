@@ -8,6 +8,8 @@
 
 namespace Omadonex\ToolsW2p\Interfaces;
 
+use Omadonex\ToolsW2p\Classes\Exceptions\ModelNotFoundException;
+
 class Repository implements IRepository
 {
     protected $model;
@@ -41,8 +43,13 @@ class Repository implements IRepository
     public function find($id, $relations = true)
     {
         $qb = $this->model->query();
+        $model = $this->attachRelations($qb, $relations)->find($id);
 
-        return $this->attachRelations($qb, $relations)->find($id);
+        if (is_null($model)) {
+            throw new ModelNotFoundException(get_class($this->model), $id);
+        }
+
+        return $model;
     }
 
     public function all($relations = true)
