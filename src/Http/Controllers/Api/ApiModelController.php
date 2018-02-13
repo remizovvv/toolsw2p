@@ -56,4 +56,19 @@ class ApiModelController extends ApiBaseController
 
         throw new BadParameterActiveException;
     }
+
+    protected function find($id)
+    {
+        return $this->repo->find($id, $this->relations, $this->active);
+    }
+
+    protected function all()
+    {
+        return $this->repo->all($this->relations, $this->active);
+    }
+
+    protected function paginate($paginateCount = null)
+    {
+        return $this->repo->paginate($paginateCount, $this->relations, $this->active);
+    }
 }
