@@ -9,13 +9,11 @@
 namespace Omadonex\ToolsW2p\Interfaces;
 
 use Illuminate\Database\Eloquent\Model;
-use Omadonex\ToolsW2p\Classes\AppCustomConstants;
-use Omadonex\ToolsW2p\Classes\Exceptions\W2pMethodNotFoundInClassException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
 use Omadonex\ToolsW2p\Traits\CanBeActivatedTrait;
 
-class Repository implements IRepository
+abstract class Repository implements IRepository
 {
     protected $model;
     protected $modelClass;
@@ -40,11 +38,6 @@ class Repository implements IRepository
         }
 
         return $qb;
-    }
-
-    protected function getPaginateCount()
-    {
-        return $this->model->paginateCount ?: AppCustomConstants::DEFAULT_PAGINATE_COUNT;
     }
 
     private function makeQB($relations, $active)
@@ -83,24 +76,22 @@ class Repository implements IRepository
 
     public function paginate($paginateCount = null, $relations = true, $active = null)
     {
-        return $this->makeQB($relations, $active)->paginate($paginateCount ?: $this->getPaginateCount());
+        return $this->makeQB($relations, $active)->paginate($paginateCount ?: $this->model->getPerPage());
     }
 
     public function create($data)
     {
-        if (!method_exists($this->modelClass, 'createOrUpdate')) {
-            throw new W2pMethodNotFoundInClassException($this->modelClass, 'creteOrUpdate');
-        }
+        //TODO omadonex: transfer to DTO
 
-        return $this->model->createOrUpdate($data);
+        return $this->model->create($data);
     }
 
     public function update($id, $data)
     {
-        if (!method_exists($this->modelClass, 'createOrUpdate')) {
-            throw new W2pMethodNotFoundInClassException($this->modelClass, 'creteOrUpdate');
-        }
+        //TODO omadonex: transfer to DTO
 
-        return $this->model->createOrUpdate($data, $id);
+        $model = $this->model->find($id);
+
+        return $model->update($data);
     }
 }
