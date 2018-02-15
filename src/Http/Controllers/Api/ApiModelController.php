@@ -3,8 +3,8 @@
 namespace Omadonex\ToolsW2p\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Omadonex\ToolsW2p\Classes\Exceptions\BadParameterActiveException;
-use Omadonex\ToolsW2p\Classes\Exceptions\BadParameterRelationsException;
+use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterActiveException;
+use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterRelationsException;
 use Omadonex\ToolsW2p\Interfaces\IRepository;
 
 class ApiModelController extends ApiBaseController
@@ -36,7 +36,7 @@ class ApiModelController extends ApiBaseController
             return $data['relations'];
         }
 
-        throw new BadParameterRelationsException($availableRelations);
+        throw new W2pBadParameterRelationsException($availableRelations);
     }
 
     private function getParamActive(Request $request)
@@ -54,7 +54,7 @@ class ApiModelController extends ApiBaseController
             return false;
         }
 
-        throw new BadParameterActiveException;
+        throw new W2pBadParameterActiveException;
     }
 
     protected function find($id)

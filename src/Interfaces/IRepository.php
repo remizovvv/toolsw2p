@@ -11,8 +11,8 @@ namespace Omadonex\ToolsW2p\Interfaces;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Omadonex\ToolsW2p\Classes\Exceptions\ModelNotFoundException;
-use Omadonex\ToolsW2p\Classes\Exceptions\ModelNotUsesTraitException;
+use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
+use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
 
 interface IRepository
 {
@@ -27,8 +27,8 @@ interface IRepository
      * @param $id
      * @param bool|array $relations
      * @param bool|null $active
-     * @throws ModelNotFoundException
-     * @throws ModelNotUsesTraitException
+     * @throws W2pModelNotFoundException
+     * @throws W2pModelNotUsesTraitException
      * @return Model
      */
     public function find($id, $relations = true, $active = null);
@@ -37,7 +37,7 @@ interface IRepository
      * Возвращает коллекцию всех моделей, загружая указанные связи и учитывая `active`
      * @param bool|array $relations
      * @param bool|null $active
-     * @throws ModelNotUsesTraitException
+     * @throws W2pModelNotUsesTraitException
      * @return Collection
      */
     public function all($relations = true, $active = null);
@@ -48,8 +48,12 @@ interface IRepository
      * @param null|int $paginateCount
      * @param bool|array $relations
      * @param bool|null $active
-     * @throws ModelNotUsesTraitException
+     * @throws W2pModelNotUsesTraitException
      * @return LengthAwarePaginator
      */
     public function paginate($paginateCount = null, $relations = true, $active = null);
+
+    public function create($data);
+
+    public function update($id, $data);
 }

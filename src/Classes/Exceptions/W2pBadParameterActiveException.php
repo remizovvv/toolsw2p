@@ -8,7 +8,7 @@
 
 namespace Omadonex\ToolsW2p\Classes\Exceptions;
 
-class BadParameterActiveException extends \Exception
+class W2pBadParameterActiveException extends \Exception
 {
     public function __construct()
     {

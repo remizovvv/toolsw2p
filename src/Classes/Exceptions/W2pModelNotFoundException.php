@@ -8,7 +8,7 @@
 
 namespace Omadonex\ToolsW2p\Classes\Exceptions;
 
-class ModelNotFoundException extends \Exception
+class W2pModelNotFoundException extends \Exception
 {
     protected $model;
     protected $id;

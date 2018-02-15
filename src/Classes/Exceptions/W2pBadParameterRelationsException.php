@@ -8,7 +8,7 @@
 
 namespace Omadonex\ToolsW2p\Classes\Exceptions;
 
-class BadParameterRelationsException extends \Exception
+class W2pBadParameterRelationsException extends \Exception
 {
     protected $availableRelations;
 

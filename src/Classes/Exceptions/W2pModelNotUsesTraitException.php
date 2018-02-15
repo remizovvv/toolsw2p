@@ -8,7 +8,7 @@
 
 namespace Omadonex\ToolsW2p\Classes\Exceptions;
 
-class ModelNotUsesTraitException extends \Exception
+class W2pModelNotUsesTraitException extends \Exception
 {
     public function __construct($modelName, $traitName)
     {

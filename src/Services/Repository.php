@@ -8,20 +8,29 @@
 
 namespace Omadonex\ToolsW2p\Interfaces;
 
+use Illuminate\Database\Eloquent\Model;
 use Omadonex\ToolsW2p\Classes\AppCustomConstants;
-use Omadonex\ToolsW2p\Classes\Exceptions\ModelNotFoundException;
-use Omadonex\ToolsW2p\Classes\Exceptions\ModelNotUsesTraitException;
+use Omadonex\ToolsW2p\Classes\Exceptions\W2pMethodNotFoundInClassException;
+use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
+use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
 use Omadonex\ToolsW2p\Traits\CanBeActivatedTrait;
 
 class Repository implements IRepository
 {
     protected $model;
+    protected $modelClass;
+
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+        $this->modelClass = get_class($model);
+    }
 
     protected function attachRelations($qb, $relations)
     {
         $prop = 'availableRelations';
         if (($relations === true)
-            && property_exists(get_class($this->model), $prop)
+            && property_exists($this->modelClass, $prop)
             && is_array($this->model->$prop)) {
             $qb->with($this->model->$prop);
         }
@@ -42,8 +51,8 @@ class Repository implements IRepository
     {
         $qb = $this->model->query();
         if (!is_null($active)) {
-            if (!in_array(CanBeActivatedTrait::class, class_uses($this->model))) {
-                throw new ModelNotUsesTraitException(get_class($this->model), CanBeActivatedTrait::class);
+            if (!in_array(CanBeActivatedTrait::class, class_uses($this->modelClass))) {
+                throw new W2pModelNotUsesTraitException($this->modelClass, CanBeActivatedTrait::class);
             }
             $qb->byActive($active);
         }
@@ -61,7 +70,7 @@ class Repository implements IRepository
         $model = $this->makeQB($relations, $active)->find($id);
 
         if (is_null($model)) {
-            throw new ModelNotFoundException($this->model, $id);
+            throw new W2pModelNotFoundException($this->model, $id);
         }
 
         return $model;
@@ -75,5 +84,23 @@ class Repository implements IRepository
     public function paginate($paginateCount = null, $relations = true, $active = null)
     {
         return $this->makeQB($relations, $active)->paginate($paginateCount ?: $this->getPaginateCount());
+    }
+
+    public function create($data)
+    {
+        if (!method_exists($this->modelClass, 'createOrUpdate')) {
+            throw new W2pMethodNotFoundInClassException($this->modelClass, 'creteOrUpdate');
+        }
+
+        return $this->model->createOrUpdate($data);
+    }
+
+    public function update($id, $data)
+    {
+        if (!method_exists($this->modelClass, 'createOrUpdate')) {
+            throw new W2pMethodNotFoundInClassException($this->modelClass, 'creteOrUpdate');
+        }
+
+        return $this->model->createOrUpdate($data, $id);
     }
 }
