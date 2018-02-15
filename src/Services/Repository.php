@@ -91,6 +91,9 @@ abstract class Repository implements IRepository
         //TODO omadonex: transfer to DTO
 
         $model = $this->model->find($id);
+        if (is_null($model)) {
+            throw new W2pModelNotFoundException($this->model, $id);
+        }
 
         return $model->update($data);
     }
