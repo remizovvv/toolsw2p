@@ -77,15 +77,11 @@ class Repository implements IRepository
 
     public function create($data)
     {
-        //TODO omadonex: transfer to DTO ?????
-
         return $this->model->create($data);
     }
 
     public function update($id, $data)
     {
-        //TODO omadonex: transfer to DTO ?????
-
         $model = $this->model->find($id);
         if (is_null($model)) {
             throw new W2pModelNotFoundException($this->model, $id);
