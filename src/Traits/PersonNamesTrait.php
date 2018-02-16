@@ -28,6 +28,11 @@ trait PersonNamesTrait
      */
     public function getOfficialNameAttribute()
     {
-        return $this->sname . ' ' . $this->tname;
+        return $this->fname . ' ' . $this->tname;
+    }
+
+    public function getInitialsNameAttribute()
+    {
+        return $this->sname . ' ' . $this->fname[0]  . ' ' . $this->tname[0];
     }
 }
