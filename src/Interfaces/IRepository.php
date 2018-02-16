@@ -34,24 +34,15 @@ interface IRepository
     public function find($id, $relations = true, $active = null);
 
     /**
-     * Возвращает коллекцию всех моделей, загружая указанные связи и учитывая `active`
-     * @param bool|array $relations
-     * @param bool|null $active
-     * @throws W2pModelNotUsesTraitException
-     * @return Collection
-     */
-    public function all($relations = true, $active = null);
-
-    /**
      * Получает коллекцию элементов, загружая указанные связи и учитывая `active`
-     * Возвращает пагинатор, если кол-во элементов не указано, то оно будет взято из модели, либо из глобальных констант
-     * @param null|int $paginateCount
+     * Возвращает пагинатор либо коллекцию, если кол-во элементов не указано, то оно будет взято из модели
      * @param bool|array $relations
      * @param bool|null $active
+     * @param bool|int $paginate
      * @throws W2pModelNotUsesTraitException
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator | Collection
      */
-    public function paginate($paginateCount = null, $relations = true, $active = null);
+    public function list($relations = true, $active = null, $paginate = true);
 
     public function create($data);
 

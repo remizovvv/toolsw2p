@@ -69,14 +69,10 @@ abstract class Repository implements IRepository
         return $model;
     }
 
-    public function all($relations = true, $active = null)
+    public function list($relations = true, $active = null, $paginate = true)
     {
-        return $this->makeQB($relations, $active)->get();
-    }
-
-    public function paginate($paginateCount = null, $relations = true, $active = null)
-    {
-        return $this->makeQB($relations, $active)->paginate($paginateCount ?: $this->model->getPerPage());
+        $qb = $this->makeQB($relations, $active);
+        return (!$paginate) ? $qb->get() : $qb->paginate(($paginate === true) ? $this->model->getPerPage() : $paginate);
     }
 
     public function create($data)

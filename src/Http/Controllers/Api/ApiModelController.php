@@ -4,6 +4,7 @@ namespace Omadonex\ToolsW2p\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterActiveException;
+use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterPaginateException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterRelationsException;
 use Omadonex\ToolsW2p\Interfaces\IRepository;
 
@@ -12,6 +13,7 @@ class ApiModelController extends ApiBaseController
     protected $repo;
     protected $relations;
     protected $active;
+    protected $paginate;
 
     public function __construct(IRepository $repo, Request $request)
     {
@@ -19,6 +21,7 @@ class ApiModelController extends ApiBaseController
         $this->repo = $repo;
         $this->relations = $this->getParamRelations($request, $this->repo->getAvailableRelations());
         $this->active = $this->getParamActive($request);
+        $this->paginate = $this->getParamPaginate($request);
     }
 
     private function getParamRelations(Request $request, $availableRelations)
@@ -57,18 +60,31 @@ class ApiModelController extends ApiBaseController
         throw new W2pBadParameterActiveException;
     }
 
+    private function getParamPaginate(Request $request)
+    {
+        $data = $request->all();
+        if (!array_key_exists('paginate', $data) || ($data['paginate'] === 'true')) {
+            return true;
+        }
+
+        if ($data['paginate'] === 'false') {
+            return false;
+        }
+
+        if (is_numeric($data['paginate'])) {
+            return $data['paginate'];
+        }
+
+        throw new W2pBadParameterPaginateException;
+    }
+
     protected function find($id)
     {
         return $this->repo->find($id, $this->relations, $this->active);
     }
 
-    protected function all()
+    protected function list()
     {
-        return $this->repo->all($this->relations, $this->active);
-    }
-
-    protected function paginate($paginateCount = null)
-    {
-        return $this->repo->paginate($paginateCount, $this->relations, $this->active);
+        return $this->repo->list($this->relations, $this->active, $this->paginate);
     }
 }
