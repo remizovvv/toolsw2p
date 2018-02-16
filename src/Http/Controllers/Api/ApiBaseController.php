@@ -17,7 +17,7 @@ class ApiBaseController extends Controller
         $this->request = $request;
     }
 
-    protected function okResponse($data)
+    protected function okResponse($data = [])
     {
         $finalData = $data;
         if (($data instanceof Resource) || ($data instanceof ResourceCollection)) {
@@ -26,7 +26,7 @@ class ApiBaseController extends Controller
         return ResponseJsonUtils::okResponse($finalData);
     }
 
-    protected function errorResponse($errorMsg)
+    protected function errorResponse($errorMsg = '')
     {
         return ResponseJsonUtils::errorResponse($errorMsg);
     }
