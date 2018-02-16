@@ -31,8 +31,12 @@ trait PersonNamesTrait
         return $this->fname . ' ' . $this->tname;
     }
 
+    /**
+     * Фамилия, инициалы
+     * @return string
+     */
     public function getInitialsNameAttribute()
     {
-        return $this->sname . ' ' . $this->fname[0]  . ' ' . $this->tname[0];
+        return $this->sname . ' ' . $this->fname[0]  . '.' . $this->tname[0] . '.';
     }
 }
