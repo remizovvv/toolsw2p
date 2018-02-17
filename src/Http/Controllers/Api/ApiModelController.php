@@ -8,18 +8,22 @@ use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterPaginateException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterRelationsException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterTrashedException;
 use Omadonex\ToolsW2p\Interfaces\IModelRepository;
+use Omadonex\ToolsW2p\Interfaces\IModelService;
 
 class ApiModelController extends ApiBaseController
 {
     protected $repo;
+    protected $service;
+    
     protected $relations;
     protected $active;
     protected $paginate;
 
-    public function __construct(IModelRepository $repo, Request $request)
+    public function __construct(IModelRepository $repo, IModelService $service, Request $request)
     {
         parent::__construct($request);
         $this->repo = $repo;
+        $this->service = $service;
         $this->relations = $this->getParamRelations($request, $this->repo->getAvailableRelations());
         $this->active = $this->getParamActive($request);
         $this->paginate = $this->getParamPaginate($request);
