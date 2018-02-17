@@ -13,7 +13,7 @@ use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
 use Omadonex\ToolsW2p\Traits\CanBeActivatedTrait;
 
-class Repository implements IRepository
+class ModelRepository implements IModelRepository
 {
     protected $model;
     protected $modelClass;
@@ -58,7 +58,7 @@ class Repository implements IRepository
         return $this->model->availableRelations ?: [];
     }
 
-    public function find($id, $relations = true, $active = null)
+    public function find($id, $relations = true, $active = null, $trashed = null)
     {
         $model = $this->makeQB($relations, $active)->find($id);
 
@@ -69,25 +69,9 @@ class Repository implements IRepository
         return $model;
     }
 
-    public function list($relations = true, $active = null, $paginate = true)
+    public function list($relations = true, $active = null, $trashed = null, $paginate = true)
     {
         $qb = $this->makeQB($relations, $active);
         return (!$paginate) ? $qb->get() : $qb->paginate(($paginate === true) ? $this->model->getPerPage() : $paginate);
-    }
-
-    public function create($data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update($id, $data)
-    {
-        $model = $this->model->find($id);
-        if (is_null($model)) {
-            throw new W2pModelNotFoundException($this->model, $id);
-        }
-        $model->update($data);
-
-        return $model;
     }
 }

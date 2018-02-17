@@ -14,7 +14,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
 
-interface IRepository
+interface IModelRepository
 {
     /**
      * Возвращает список доступных связей модели, либо пустой массив, если свойство отсутствует
@@ -27,24 +27,22 @@ interface IRepository
      * @param $id
      * @param bool|array $relations
      * @param bool|null $active
+     * @param null|String $trashed
      * @throws W2pModelNotFoundException
      * @throws W2pModelNotUsesTraitException
      * @return Model
      */
-    public function find($id, $relations = true, $active = null);
+    public function find($id, $relations = true, $active = null, $trashed = null);
 
     /**
      * Получает коллекцию элементов, загружая указанные связи и учитывая `active`
      * Возвращает пагинатор либо коллекцию, если кол-во элементов не указано, то оно будет взято из модели
      * @param bool|array $relations
      * @param bool|null $active
+     * @param null|String $trashed
      * @param bool|int $paginate
      * @throws W2pModelNotUsesTraitException
      * @return LengthAwarePaginator | Collection
      */
-    public function list($relations = true, $active = null, $paginate = true);
-
-    public function create($data);
-
-    public function update($id, $data);
+    public function list($relations = true, $active = null, $trashed = null, $paginate = true);
 }

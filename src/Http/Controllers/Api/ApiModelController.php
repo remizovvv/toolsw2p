@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterActiveException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterPaginateException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterRelationsException;
-use Omadonex\ToolsW2p\Interfaces\IRepository;
+use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterTrashedException;
+use Omadonex\ToolsW2p\Interfaces\IModelRepository;
 
 class ApiModelController extends ApiBaseController
 {
@@ -15,7 +16,7 @@ class ApiModelController extends ApiBaseController
     protected $active;
     protected $paginate;
 
-    public function __construct(IRepository $repo, Request $request)
+    public function __construct(IModelRepository $repo, Request $request)
     {
         parent::__construct($request);
         $this->repo = $repo;
@@ -76,6 +77,20 @@ class ApiModelController extends ApiBaseController
         }
 
         throw new W2pBadParameterPaginateException;
+    }
+
+    private function getParamTrashed(Request $request)
+    {
+        $data = $request->all();
+        if (!array_key_exists('trashed', $data)) {
+            return null;
+        }
+
+        if (in_array($data['trashed'], ['only', 'with'])) {
+            return $data['trashed'];
+        }
+
+        throw new W2pBadParameterTrashedException;
     }
 
     protected function find($id)
