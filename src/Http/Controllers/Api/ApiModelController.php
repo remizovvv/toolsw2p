@@ -97,22 +97,22 @@ class ApiModelController extends ApiBaseController
         throw new W2pBadParameterTrashedException;
     }
 
-    protected function find($id)
+    protected function modelFind($id)
     {
         return $this->repo->find($id, $this->relations, $this->active);
     }
 
-    protected function list()
+    protected function modelList()
     {
         return $this->repo->list($this->relations, $this->active, $this->paginate);
     }
 
-    protected function create($data)
+    protected function modelCreate($data)
     {
         return $this->service->create($data);
     }
 
-    protected function update($id, $data)
+    protected function modelUpdate($id, $data)
     {
         return $this->service->update($id, $data);
     }
