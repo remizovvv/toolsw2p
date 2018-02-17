@@ -11,7 +11,7 @@ namespace Omadonex\ToolsW2p\Interfaces;
 use Illuminate\Database\Eloquent\Model;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
 
-class ModelService implements IModelService
+abstract class ModelService implements IModelService
 {
     protected $model;
     protected $modelClass;

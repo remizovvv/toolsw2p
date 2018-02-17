@@ -13,7 +13,7 @@ use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
 use Omadonex\ToolsW2p\Traits\CanBeActivatedTrait;
 
-class ModelRepository implements IModelRepository
+abstract class ModelRepository implements IModelRepository
 {
     protected $model;
     protected $modelClass;
