@@ -31,23 +31,23 @@ interface IModelRepository
     /**
      * Находит модель по id, загружая указанные связи и учитывая `active`
      * @param $id
-     * @param null|String $trashed
      * @param bool|array $relations
+     * @param null|String $trashed
      * @throws W2pModelNotFoundException
      * @throws W2pModelNotUsesTraitException
      * @return Model
      */
-    public function find($id, $trashed = null, $relations = true);
+    public function find($id, $relations = true, $trashed = null);
 
     /**
      * Получает коллекцию элементов, загружая указанные связи и учитывая `active`
      * Возвращает пагинатор либо коллекцию, если кол-во элементов не указано, то оно будет взято из модели
-     * @param null|String $trashed
      * @param bool|array $relations
+     * @param null|String $trashed
      * @param bool|null $active
      * @param bool|int $paginate
      * @throws W2pModelNotUsesTraitException
      * @return LengthAwarePaginator | Collection
      */
-    public function list($trashed = null, $relations = true, $active = null, $paginate = true);
+    public function list($relations = true, $trashed = null, $active = null, $paginate = true);
 }

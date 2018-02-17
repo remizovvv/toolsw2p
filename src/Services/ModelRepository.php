@@ -45,7 +45,7 @@ abstract class ModelRepository implements IModelRepository
         return $qb;
     }
 
-    private function makeQB($trashed, $relations, $active)
+    private function makeQB($relations, $trashed, $active)
     {
         $qb = $this->model->query();
 
@@ -83,9 +83,9 @@ abstract class ModelRepository implements IModelRepository
         return $this->model->availableRelations ?: [];
     }
 
-    public function find($id, $trashed = null, $relations = true)
+    public function find($id, $relations = true, $trashed = null)
     {
-        $model = $this->makeQB($trashed, $relations, null)->find($id);
+        $model = $this->makeQB($relations, $trashed, null)->find($id);
 
         if (is_null($model)) {
             throw new W2pModelNotFoundException($this->model, $id);
@@ -94,9 +94,9 @@ abstract class ModelRepository implements IModelRepository
         return $model;
     }
 
-    public function list($trashed = null, $relations = true, $active = null, $paginate = true)
+    public function list($relations = true, $trashed = null, $active = null, $paginate = true)
     {
-        $qb = $this->makeQB($trashed, $relations, $active);
+        $qb = $this->makeQB($relations, $trashed, $active);
         return (!$paginate) ? $qb->get() : $qb->paginate(($paginate === true) ? $this->model->getPerPage() : $paginate);
     }
 }
