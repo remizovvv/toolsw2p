@@ -14,7 +14,7 @@ class ApiModelController extends ApiBaseController
 {
     protected $repo;
     protected $service;
-    
+
     protected $relations;
     protected $active;
     protected $paginate;
@@ -105,5 +105,15 @@ class ApiModelController extends ApiBaseController
     protected function list()
     {
         return $this->repo->list($this->relations, $this->active, $this->paginate);
+    }
+
+    protected function create($data)
+    {
+        return $this->service->create($data);
+    }
+
+    protected function update($id, $data)
+    {
+        return $this->service->update($id, $data);
     }
 }
