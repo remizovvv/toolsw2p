@@ -9,6 +9,7 @@
 namespace Omadonex\ToolsW2p\Interfaces;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
 use Omadonex\ToolsW2p\Traits\CanBeActivatedTrait;
@@ -24,8 +25,14 @@ abstract class ModelRepository implements IModelRepository
         $this->modelClass = get_class($model);
     }
 
+    public function getModel()
+    {
+        return $this->model;
+    }
+
     protected function attachRelations($qb, $relations)
     {
+        //TODO Trashed
         $prop = 'availableRelations';
         if (($relations === true)
             && property_exists($this->modelClass, $prop)
@@ -40,9 +47,24 @@ abstract class ModelRepository implements IModelRepository
         return $qb;
     }
 
-    private function makeQB($relations, $active)
+    private function makeQB($relations, $trashed, $active)
     {
         $qb = $this->model->query();
+
+        if (!is_null($trashed)) {
+            if (!in_array(SoftDeletes::class, class_uses($this->modelClass))) {
+                throw new W2pModelNotUsesTraitException($this->modelClass, SoftDeletes::class);
+            }
+
+            if ($trashed === 'with') {
+                $qb->withTrashed();
+            }
+
+            if ($trashed === 'only') {
+                $qb->onlyTrashed();
+            }
+        }
+
         if (!is_null($active)) {
             if (!in_array(CanBeActivatedTrait::class, class_uses($this->modelClass))) {
                 throw new W2pModelNotUsesTraitException($this->modelClass, CanBeActivatedTrait::class);
@@ -58,9 +80,9 @@ abstract class ModelRepository implements IModelRepository
         return $this->model->availableRelations ?: [];
     }
 
-    public function find($id, $relations = true, $active = null, $trashed = null)
+    public function find($id, $relations = true, $trashed = null)
     {
-        $model = $this->makeQB($relations, $active)->find($id);
+        $model = $this->makeQB($relations, $trashed, null)->find($id);
 
         if (is_null($model)) {
             throw new W2pModelNotFoundException($this->model, $id);
@@ -69,9 +91,9 @@ abstract class ModelRepository implements IModelRepository
         return $model;
     }
 
-    public function list($relations = true, $active = null, $trashed = null, $paginate = true)
+    public function list($relations = true, $trashed = null, $active = null, $paginate = true)
     {
-        $qb = $this->makeQB($relations, $active);
+        $qb = $this->makeQB($relations, $trashed, $active);
         return (!$paginate) ? $qb->get() : $qb->paginate(($paginate === true) ? $this->model->getPerPage() : $paginate);
     }
 }

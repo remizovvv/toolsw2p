@@ -26,13 +26,12 @@ interface IModelRepository
      * Находит модель по id, загружая указанные связи и учитывая `active`
      * @param $id
      * @param bool|array $relations
-     * @param bool|null $active
      * @param null|String $trashed
      * @throws W2pModelNotFoundException
      * @throws W2pModelNotUsesTraitException
      * @return Model
      */
-    public function find($id, $relations = true, $active = null, $trashed = null);
+    public function find($id, $relations = true, $trashed = null);
 
     /**
      * Получает коллекцию элементов, загружая указанные связи и учитывая `active`
@@ -44,5 +43,5 @@ interface IModelRepository
      * @throws W2pModelNotUsesTraitException
      * @return LengthAwarePaginator | Collection
      */
-    public function list($relations = true, $active = null, $trashed = null, $paginate = true);
+    public function list($relations = true, $trashed = null, $active = null, $paginate = true);
 }

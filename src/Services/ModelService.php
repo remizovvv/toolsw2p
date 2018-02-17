@@ -8,33 +8,22 @@
 
 namespace Omadonex\ToolsW2p\Interfaces;
 
-use Illuminate\Database\Eloquent\Model;
-use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
-
 abstract class ModelService implements IModelService
 {
-    protected $model;
-    protected $modelClass;
+    protected $repo;
 
-    public function __construct(Model $model)
+    public function __construct(IModelRepository $repo)
     {
-        $this->model = $model;
-        $this->modelClass = get_class($model);
+        $this->repo = $repo;
     }
 
     public function create($data)
     {
-        return $this->model->create($data);
+        return $this->repo->getModel()->create($data);
     }
 
     public function update($id, $data)
     {
-        $model = $this->model->find($id);
-        if (is_null($model)) {
-            throw new W2pModelNotFoundException($this->model, $id);
-        }
-        $model->update($data);
-
-        return $model;
+        return $this->repo->find($id)->update($data);
     }
 }
