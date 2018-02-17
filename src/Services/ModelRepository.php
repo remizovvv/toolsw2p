@@ -14,7 +14,7 @@ use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
 use Omadonex\ToolsW2p\Traits\CanBeActivatedTrait;
 
-abstract class ModelRepository implements IModelRepository
+class ModelRepository implements IModelRepository
 {
     const TRASHED_WITH = 'with';
     const TRASHED_ONLY = 'only';

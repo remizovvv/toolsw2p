@@ -8,7 +8,7 @@
 
 namespace Omadonex\ToolsW2p\Interfaces;
 
-abstract class ModelService implements IModelService
+class ModelService implements IModelService
 {
     protected $repo;
 
