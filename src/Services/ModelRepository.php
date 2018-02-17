@@ -16,6 +16,9 @@ use Omadonex\ToolsW2p\Traits\CanBeActivatedTrait;
 
 abstract class ModelRepository implements IModelRepository
 {
+    const TRASHED_WITH = 'with';
+    const TRASHED_ONLY = 'only';
+
     protected $model;
     protected $modelClass;
 
@@ -23,11 +26,6 @@ abstract class ModelRepository implements IModelRepository
     {
         $this->model = $model;
         $this->modelClass = get_class($model);
-    }
-
-    public function getModel()
-    {
-        return $this->model;
     }
 
     protected function attachRelations($qb, $relations)
@@ -47,7 +45,7 @@ abstract class ModelRepository implements IModelRepository
         return $qb;
     }
 
-    private function makeQB($relations, $trashed, $active)
+    private function makeQB($trashed, $relations, $active)
     {
         $qb = $this->model->query();
 
@@ -56,11 +54,11 @@ abstract class ModelRepository implements IModelRepository
                 throw new W2pModelNotUsesTraitException($this->modelClass, SoftDeletes::class);
             }
 
-            if ($trashed === 'with') {
+            if ($trashed === self::TRASHED_WITH) {
                 $qb->withTrashed();
             }
 
-            if ($trashed === 'only') {
+            if ($trashed === self::TRASHED_ONLY) {
                 $qb->onlyTrashed();
             }
         }
@@ -75,14 +73,19 @@ abstract class ModelRepository implements IModelRepository
         return $this->attachRelations($qb, $relations);
     }
 
+    public function getModel()
+    {
+        return $this->model;
+    }
+
     public function getAvailableRelations()
     {
         return $this->model->availableRelations ?: [];
     }
 
-    public function find($id, $relations = true, $trashed = null)
+    public function find($id, $trashed = null, $relations = true)
     {
-        $model = $this->makeQB($relations, $trashed, null)->find($id);
+        $model = $this->makeQB($trashed, $relations, null)->find($id);
 
         if (is_null($model)) {
             throw new W2pModelNotFoundException($this->model, $id);
@@ -91,9 +94,9 @@ abstract class ModelRepository implements IModelRepository
         return $model;
     }
 
-    public function list($relations = true, $trashed = null, $active = null, $paginate = true)
+    public function list($trashed = null, $relations = true, $active = null, $paginate = true)
     {
-        $qb = $this->makeQB($relations, $trashed, $active);
+        $qb = $this->makeQB($trashed, $relations, $active);
         return (!$paginate) ? $qb->get() : $qb->paginate(($paginate === true) ? $this->model->getPerPage() : $paginate);
     }
 }

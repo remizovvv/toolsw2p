@@ -9,12 +9,14 @@ use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterRelationsException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterTrashedException;
 use Omadonex\ToolsW2p\Interfaces\IModelRepository;
 use Omadonex\ToolsW2p\Interfaces\IModelService;
+use Omadonex\ToolsW2p\Interfaces\ModelRepository;
 
 class ApiModelController extends ApiBaseController
 {
     protected $repo;
     protected $service;
 
+    protected $trashed;
     protected $relations;
     protected $active;
     protected $paginate;
@@ -24,6 +26,7 @@ class ApiModelController extends ApiBaseController
         parent::__construct($request);
         $this->repo = $repo;
         $this->service = $service;
+        $this->trashed = $this->getParamTrashed($request);
         $this->relations = $this->getParamRelations($request, $this->repo->getAvailableRelations());
         $this->active = $this->getParamActive($request);
         $this->paginate = $this->getParamPaginate($request);
@@ -90,7 +93,7 @@ class ApiModelController extends ApiBaseController
             return null;
         }
 
-        if (in_array($data['trashed'], ['only', 'with'])) {
+        if (in_array($data['trashed'], [ModelRepository::TRASHED_WITH, ModelRepository::TRASHED_ONLY])) {
             return $data['trashed'];
         }
 
@@ -99,12 +102,12 @@ class ApiModelController extends ApiBaseController
 
     protected function modelFind($id)
     {
-        return $this->repo->find($id, $this->relations, $this->active);
+        return $this->repo->find($id, $this->trashed, $this->relations);
     }
 
     protected function modelList()
     {
-        return $this->repo->list($this->relations, $this->active, $this->paginate);
+        return $this->repo->list($this->trashed, $this->relations, $this->active, $this->paginate);
     }
 
     protected function modelCreate($data)
