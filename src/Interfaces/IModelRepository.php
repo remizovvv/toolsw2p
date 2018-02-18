@@ -59,5 +59,5 @@ interface IModelRepository
 
     public function listResource($relations = true, $trashed = null, $active = null, $paginate = true);
 
-    public function agrCount();
+    public function agrCount($trashed = null, $active = null);
 }
