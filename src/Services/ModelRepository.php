@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
 use Omadonex\ToolsW2p\Traits\CanBeActivatedTrait;
+use Omadonex\ToolsW2p\Transformers\PaginateResourceCollection;
 
 abstract class ModelRepository implements IModelRepository
 {
@@ -74,6 +75,15 @@ abstract class ModelRepository implements IModelRepository
         return $this->attachRelations($qb, $relations);
     }
 
+    private function getResourceCollection($paginate, $collection)
+    {
+        if ($paginate) {
+            return new PaginateResourceCollection($collection, $this->resourceClass);
+        }
+
+        return $this->resourceClass::collection($collection);
+    }
+
     public function getModel()
     {
         return $this->model;
@@ -109,6 +119,6 @@ abstract class ModelRepository implements IModelRepository
 
     public function listResource($relations = true, $trashed = null, $active = null, $paginate = true)
     {
-        return $this->resourceClass::collection($this->list($relations, $trashed, $active, $paginate));
+        return $this->getResourceCollection($paginate, $this->list($relations, $trashed, $active, $paginate));
     }
 }
