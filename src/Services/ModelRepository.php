@@ -75,13 +75,18 @@ abstract class ModelRepository implements IModelRepository
         return $this->attachRelations($qb, $relations);
     }
 
-    private function getResourceCollection($paginate, $collection)
+    public function getResource($data)
+    {
+        return new $this->resourceClass($data);
+    }
+
+    public function getResourceCollection($data, $paginate)
     {
         if ($paginate) {
-            return new PaginateResourceCollection($collection, $this->resourceClass);
+            return new PaginateResourceCollection($data, $this->resourceClass);
         }
 
-        return $this->resourceClass::collection($collection);
+        return $this->resourceClass::collection($data);
     }
 
     public function getModel()
@@ -107,7 +112,7 @@ abstract class ModelRepository implements IModelRepository
 
     public function findResource($id, $relations = true, $trashed = null)
     {
-        return new $this->resourceClass($this->find($id, $relations, $trashed));
+        return $this->getResource($this->find($id, $relations, $trashed));
     }
 
     public function list($relations = true, $trashed = null, $active = null, $paginate = true)
@@ -119,6 +124,6 @@ abstract class ModelRepository implements IModelRepository
 
     public function listResource($relations = true, $trashed = null, $active = null, $paginate = true)
     {
-        return $this->getResourceCollection($paginate, $this->list($relations, $trashed, $active, $paginate));
+        return $this->getResourceCollection($this->list($relations, $trashed, $active, $paginate), $paginate);
     }
 }
