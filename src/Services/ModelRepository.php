@@ -21,16 +21,17 @@ abstract class ModelRepository implements IModelRepository
 
     protected $model;
     protected $modelClass;
+    protected $resourceClass;
 
-    public function __construct(Model $model)
+    public function __construct(Model $model, $resourceClass)
     {
         $this->model = $model;
         $this->modelClass = get_class($model);
+        $this->resourceClass = $resourceClass;
     }
 
     protected function attachRelations($qb, $relations)
     {
-        //TODO Trashed
         $prop = 'availableRelations';
         if (($relations === true)
             && property_exists($this->modelClass, $prop)
@@ -94,9 +95,19 @@ abstract class ModelRepository implements IModelRepository
         return $model;
     }
 
+    public function findResource($id, $relations = true, $trashed = null)
+    {
+        return new $this->resourceClass($this->find($id, $relations, $trashed));
+    }
+
     public function list($relations = true, $trashed = null, $active = null, $paginate = true)
     {
         $qb = $this->makeQB($relations, $trashed, $active);
         return (!$paginate) ? $qb->get() : $qb->paginate(($paginate === true) ? $this->model->getPerPage() : $paginate);
+    }
+
+    public function listResource($relations = true, $trashed = null, $active = null, $paginate = true)
+    {
+        return $this->resourceClass::collection($this->list($relations, $trashed, $active, $paginate));
     }
 }

@@ -39,6 +39,8 @@ interface IModelRepository
      */
     public function find($id, $relations = true, $trashed = null);
 
+    public function findResource($id, $relations = true, $trashed = null);
+
     /**
      * Получает коллекцию элементов, загружая указанные связи и учитывая `active`
      * Возвращает пагинатор либо коллекцию, если кол-во элементов не указано, то оно будет взято из модели
@@ -50,4 +52,7 @@ interface IModelRepository
      * @return LengthAwarePaginator | Collection
      */
     public function list($relations = true, $trashed = null, $active = null, $paginate = true);
+
+    public function listResource($relations = true, $trashed = null, $active = null, $paginate = true);
+
 }
