@@ -126,4 +126,9 @@ abstract class ModelRepository implements IModelRepository
     {
         return $this->getResourceCollection($this->list($relations, $trashed, $active, $paginate), $paginate);
     }
+
+    public function agrCount($trashed = null, $active = null)
+    {
+        return $this->makeQB(false, $trashed, $active)->count();
+    }
 }
