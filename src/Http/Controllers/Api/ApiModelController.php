@@ -100,33 +100,41 @@ class ApiModelController extends ApiBaseController
         throw new W2pBadParameterTrashedException;
     }
 
-    protected function modelFind($id)
+    protected function modelFind($id, $resource = false)
     {
+        if ($resource) {
+            return $this->repo->findResource($id, $this->relations, $this->trashed);
+        }
+
         return $this->repo->find($id, $this->relations, $this->trashed);
     }
 
-    protected function modelFindResource($id)
+    protected function modelList($resource = false)
     {
-        return $this->repo->findResource($id, $this->relations, $this->trashed);
-    }
+        if ($resource) {
+            return $this->repo->listResource($this->relations, $this->trashed, $this->active, $this->paginate);
+        }
 
-    protected function modelList()
-    {
         return $this->repo->list($this->relations, $this->trashed, $this->active, $this->paginate);
     }
 
-    protected function modelListResource()
+    protected function modelCreate($data, $resource = false)
     {
-        return $this->repo->listResource($this->relations, $this->trashed, $this->active, $this->paginate);
+        $model = $this->service->create($data);
+        if ($resource) {
+            return $this->repo->getResource($model);
+        }
+
+        return $model;
     }
 
-    protected function modelCreate($data)
+    protected function modelUpdate($id, $data, $resource = false)
     {
-        return $this->service->create($data);
-    }
+        $model = $this->service->update($id, $data);
+        if ($resource) {
+            return $this->repo->getResource($model);
+        }
 
-    protected function modelUpdate($id, $data)
-    {
-        return $this->service->update($id, $data);
+        return $model;
     }
 }
