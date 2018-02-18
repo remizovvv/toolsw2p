@@ -24,11 +24,14 @@ abstract class ModelService implements IModelService
 
     public function update($id, $data)
     {
-        return $this->repo->find($id)->update($data);
+        $model = $this->repo->find($id);
+        $model->update($data);
+
+        return $model;
     }
 
     public function tryDestroy($id)
     {
-        return $this->repo->getModel()->destroy($id);
+        $this->repo->getModel()->destroy($id);
     }
 }
