@@ -28,4 +28,6 @@ interface IModelService
      * @return Model
      */
     public function update($id, $data);
+
+    public function destroy($id);
 }
