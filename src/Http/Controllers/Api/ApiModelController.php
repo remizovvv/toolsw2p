@@ -26,10 +26,12 @@ class ApiModelController extends ApiBaseController
         parent::__construct($request);
         $this->repo = $repo;
         $this->service = $service;
-        $this->trashed = $this->getParamTrashed($request);
-        $this->relations = $this->getParamRelations($request, $this->repo->getAvailableRelations());
-        $this->active = $this->getParamActive($request);
-        $this->paginate = $this->getParamPaginate($request);
+        if ($request->isMethod('get')) {
+            $this->trashed = $this->getParamTrashed($request);
+            $this->relations = $this->getParamRelations($request, $this->repo->getAvailableRelations());
+            $this->active = $this->getParamActive($request);
+            $this->paginate = $this->getParamPaginate($request);
+        }
     }
 
     private function getParamRelations(Request $request, $availableRelations)
