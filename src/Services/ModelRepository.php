@@ -103,6 +103,7 @@ abstract class ModelRepository implements IModelRepository
     public function list($relations = true, $trashed = null, $active = null, $paginate = true)
     {
         $qb = $this->makeQB($relations, $trashed, $active);
+
         return (!$paginate) ? $qb->get() : $qb->paginate(($paginate === true) ? $this->model->getPerPage() : $paginate);
     }
 

@@ -105,9 +105,19 @@ class ApiModelController extends ApiBaseController
         return $this->repo->find($id, $this->relations, $this->trashed);
     }
 
+    protected function modelFindResource($id)
+    {
+        return $this->repo->findResource($id, $this->relations, $this->trashed);
+    }
+
     protected function modelList()
     {
         return $this->repo->list($this->relations, $this->trashed, $this->active, $this->paginate);
+    }
+
+    protected function modelListResource()
+    {
+        return $this->repo->listResource($this->relations, $this->trashed, $this->active, $this->paginate);
     }
 
     protected function modelCreate($data)
