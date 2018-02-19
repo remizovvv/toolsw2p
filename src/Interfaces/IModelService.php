@@ -30,4 +30,8 @@ interface IModelService
     public function update($id, $data);
 
     public function tryDestroy($id);
+
+    public function activate($id);
+
+    public function deactivate($id);
 }

@@ -63,6 +63,16 @@ trait CanBeActivatedTrait
         return true;
     }
 
+    public function cantActivateText()
+    {
+        return 'Запись не может быть активирована';
+    }
+
+    public function cantDeactivateText()
+    {
+        return 'Запись не может быть деактивирована';
+    }
+
     public function scopeActive($query)
     {
         $fieldName = $this->getActiveFieldName();
