@@ -21,6 +21,18 @@ class ToolsW2pServiceProvider extends ServiceProvider
                 ServiceMake::class,
             ]);
         }
+
+        $pathRoot = realpath(__DIR__.'/../..');
+
+        $this->loadViewsFrom("$pathRoot/resources/views", 'toolsw2p');
+        $this->loadTranslationsFrom("$pathRoot/resources/lang", 'toolsw2p');
+
+        $this->publishes([
+            "$pathRoot/resources/views" => resource_path('views/vendor/toolsw2p'),
+        ], 'views');
+        $this->publishes([
+            "$pathRoot/resources/lang" => resource_path('lang/vendor/toolsw2p'),
+        ], 'translations');
     }
 
     /**
