@@ -10,6 +10,7 @@ namespace Omadonex\ToolsW2p\Interfaces;
 
 interface ILicenseFilesUtils
 {
+    /*
     public function addTypoRecord($data);
 
     public function updateTypoRecord($host, $data);
@@ -17,6 +18,9 @@ interface ILicenseFilesUtils
     public function deleteTypoRecord($host);
 
     public function addLicenseRecord($data);
+    */
 
     public function addPermissionRecord($data);
+
+    public function clearPermissions();
 }

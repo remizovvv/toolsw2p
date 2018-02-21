@@ -21,4 +21,6 @@ interface ILicenseFilesMemStorage
     public function getPermission($permissionId);
 
     public function setPermission($permissionId, $value);
+
+    public function delPermission($permissionId);
 }
