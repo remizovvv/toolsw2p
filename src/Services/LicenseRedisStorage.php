@@ -10,7 +10,7 @@ namespace Omadonex\ToolsW2p\Interfaces;
 
 use Illuminate\Redis\Connections\Connection;
 
-class LicenseFilesMemStorage implements ILicenseFilesMemStorage
+class LicenseRedisStorage implements ILicenseStorage
 {
     public $redisConnection;
 
