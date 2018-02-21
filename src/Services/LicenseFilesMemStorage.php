@@ -21,7 +21,7 @@ class LicenseFilesMemStorage implements ILicenseFilesMemStorage
 
     public function getPermission($permissionId)
     {
-        return json_decode($this->redisConnection->get("permission_$permissionId"));
+        return json_decode($this->redisConnection->get("permission_$permissionId"), true);
     }
 
     public function setPermission($permissionId, $arrayData)
