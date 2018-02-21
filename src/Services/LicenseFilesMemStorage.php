@@ -8,24 +8,24 @@
 
 namespace Omadonex\ToolsW2p\Interfaces;
 
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Redis\Connections\Connection;
 
 class LicenseFilesMemStorage implements ILicenseFilesMemStorage
 {
-    protected $redis;
+    protected $redisConnection;
 
-    public function __construct()
+    public function __construct(Connection $redisConnection)
     {
-        $this->redis = Redis::connection('typo');
+        $this->redisConnection = $redisConnection;
     }
 
     public function getPermission($permissionId)
     {
-        return $this->redis->get("permission_$permissionId");
+        return json_decode($this->redisConnection->get("permission_$permissionId"));
     }
 
-    public function setPermission($permissionId, $value)
+    public function setPermission($permissionId, $arrayData)
     {
-        $this->redis->set("permission_$permissionId", $value);
+        $this->redisConnection->set("permission_$permissionId", json_encode($arrayData));
     }
 }
