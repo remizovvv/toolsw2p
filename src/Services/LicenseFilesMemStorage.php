@@ -12,8 +12,6 @@ use Illuminate\Redis\Connections\Connection;
 
 class LicenseFilesMemStorage implements ILicenseFilesMemStorage
 {
-    const KEY_PERMISSIONS_LIST = 'permissions';
-
     public $redisConnection;
 
     public function __construct(Connection $redisConnection)
@@ -34,5 +32,10 @@ class LicenseFilesMemStorage implements ILicenseFilesMemStorage
     public function delPermission($permissionId)
     {
         $this->redisConnection->del(["permission_$permissionId"]);
+    }
+
+    public function clearPermissions()
+    {
+        $this->redisConnection->del($this->redisConnection->keys('permission_*'));
     }
 }
