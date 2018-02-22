@@ -8,23 +8,14 @@
 
 namespace Omadonex\ToolsW2p\Services\Licenser;
 
-use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenserChecker;
+use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenser;
 use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenserFileStorage;
 use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenserRedisStorage;
-use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenserStorage;
 
-class Licenser implements ILicenserStorage, ILicenserChecker
+class Licenser implements ILicenser
 {
-    const PERMISSION_CRM = 1;
-    const PERMISSION_PRODUCTS = 2;
-    const PERMISSION_EXCHANGE = 3;
-
     const STORAGE_TYPE_FILE = 'file';
     const STORAGE_TYPE_REDIS = 'redis';
-
-    const RECORD_TYPE_TYPOGRAPHY = 'typography';
-    const RECORD_TYPE_LICENSE = 'license';
-    const RECORD_TYPE_PERMISSION = 'permission';
 
     protected $fileStorage;
     protected $redisStorage;

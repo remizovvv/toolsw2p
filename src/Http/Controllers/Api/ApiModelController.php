@@ -3,13 +3,13 @@
 namespace Omadonex\ToolsW2p\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Omadonex\ToolsW2p\Classes\CustomConstants;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterActiveException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterPaginateException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterRelationsException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pBadParameterTrashedException;
-use Omadonex\ToolsW2p\Interfaces\IModelRepository;
-use Omadonex\ToolsW2p\Interfaces\IModelService;
-use Omadonex\ToolsW2p\Interfaces\ModelRepository;
+use Omadonex\ToolsW2p\Interfaces\Model\IModelRepository;
+use Omadonex\ToolsW2p\Interfaces\Model\IModelService;
 
 class ApiModelController extends ApiBaseController
 {
@@ -95,7 +95,7 @@ class ApiModelController extends ApiBaseController
             return null;
         }
 
-        if (in_array($data['trashed'], [ModelRepository::TRASHED_WITH, ModelRepository::TRASHED_ONLY])) {
+        if (in_array($data['trashed'], [CustomConstants::DB_QUERY_TRASHED_WITH, CustomConstants::DB_QUERY_TRASHED_ONLY])) {
             return $data['trashed'];
         }
 

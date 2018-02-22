@@ -10,6 +10,7 @@ namespace Omadonex\ToolsW2p\Services\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Omadonex\ToolsW2p\Classes\CustomConstants;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
 use Omadonex\ToolsW2p\Interfaces\Model\IModelRepository;
@@ -18,9 +19,6 @@ use Omadonex\ToolsW2p\Transformers\PaginateResourceCollection;
 
 abstract class ModelRepository implements IModelRepository
 {
-    const TRASHED_WITH = 'with';
-    const TRASHED_ONLY = 'only';
-
     protected $model;
     protected $modelClass;
     protected $resourceClass;
@@ -57,11 +55,11 @@ abstract class ModelRepository implements IModelRepository
                 throw new W2pModelNotUsesTraitException($this->modelClass, SoftDeletes::class);
             }
 
-            if ($trashed === self::TRASHED_WITH) {
+            if ($trashed === CustomConstants::DB_QUERY_TRASHED_WITH) {
                 $qb->withTrashed();
             }
 
-            if ($trashed === self::TRASHED_ONLY) {
+            if ($trashed === CustomConstants::DB_QUERY_TRASHED_ONLY) {
                 $qb->onlyTrashed();
             }
         }
