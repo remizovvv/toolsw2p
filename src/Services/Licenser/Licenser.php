@@ -9,54 +9,19 @@
 namespace Omadonex\ToolsW2p\Services\Licenser;
 
 use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenser;
-use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenserFileStorage;
-use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenserRedisStorage;
+use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenserStorage;
 
 class Licenser implements ILicenser
 {
-    const STORAGE_TYPE_FILE = 'file';
-    const STORAGE_TYPE_REDIS = 'redis';
+    protected $storage;
 
-    protected $fileStorage;
-    protected $redisStorage;
-    protected $preferReadStorage;
-
-    public function __construct(ILicenserFileStorage $fileStorage, ILicenserRedisStorage $redisStorage,
-        $preferReadStorage = self::STORAGE_TYPE_REDIS)
+    public function __construct(ILicenserStorage $storage)
     {
-        $this->fileStorage = $fileStorage;
-        $this->redisStorage = $redisStorage;
-        $this->preferReadStorage = $preferReadStorage;
-    }
-
-    public function get($recordType, $key)
-    {
-        if ($this->preferReadStorage === self::STORAGE_TYPE_FILE) {
-            return $this->fileStorage->get($recordType, $key);
-        }
-
-        return $this->redisStorage->get($recordType, $key);
-    }
-
-    public function set($recordType, $key, $valueArr)
-    {
-        $this->fileStorage->set($recordType, $key, $valueArr);
-        $this->redisStorage->set($recordType, $key, $valueArr);
-    }
-
-    public function remove($recordType, $key)
-    {
-        $this->fileStorage->remove($recordType, $key);
-        $this->redisStorage->remove($recordType, $key);
-    }
-
-    public function clear($recordType)
-    {
-        // TODO: Implement clear() method.
+        $this->storage = $storage;
     }
 
     public function check()
     {
-        // TODO: Implement check() method.
+
     }
 }

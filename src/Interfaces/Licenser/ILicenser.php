@@ -8,7 +8,7 @@
 
 namespace Omadonex\ToolsW2p\Interfaces\Licenser;
 
-interface ILicenser extends ILicenserStorage, ILicenserChecker
+interface ILicenser
 {
-
+    public function check();
 }
