@@ -10,11 +10,11 @@ namespace Omadonex\ToolsW2p\Classes;
 
 class AppConstants
 {
-    const LICENSER_PERMISSION_CRM = 1;
-    const LICENSER_PERMISSION_PRODUCTS = 2;
-    const LICENSER_PERMISSION_EXCHANGE = 3;
+    const LICENSER_PRM_CRM = 1;
+    const LICENSER_PRM_PRODUCTS = 2;
+    const LICENSER_PRM_EXCHANGE = 3;
 
-    const LICENSER_RECORD_TYPE_TYPOGRAPHY = 'typography';
-    const LICENSER_RECORD_TYPE_LICENSE = 'license';
-    const LICENSER_RECORD_TYPE_PERMISSION = 'permission';
+    const LICENSER_RT_TYPOGRAPHY = 'typography';
+    const LICENSER_RT_LICENSE = 'license';
+    const LICENSER_RT_PERMISSION = 'permission';
 }
