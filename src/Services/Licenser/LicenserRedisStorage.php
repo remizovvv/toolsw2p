@@ -11,7 +11,7 @@ namespace Omadonex\ToolsW2p\Services\Licenser;
 use Illuminate\Redis\Connections\Connection;
 use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenserRedisStorage;
 
-class LicenseRedisStorage implements ILicenserRedisStorage
+class LicenserRedisStorage implements ILicenserRedisStorage
 {
     public $redisConnection;
 

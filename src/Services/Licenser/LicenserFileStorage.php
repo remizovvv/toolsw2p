@@ -10,7 +10,7 @@ namespace Omadonex\ToolsW2p\Services\Licenser;
 
 use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenserFileStorage;
 
-class LicenseFileStorage implements ILicenserFileStorage
+class LicenserFileStorage implements ILicenserFileStorage
 {
 
     public function get($recordType, $key)
