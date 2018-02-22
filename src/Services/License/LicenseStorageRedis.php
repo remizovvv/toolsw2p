@@ -6,12 +6,12 @@
  * Time: 21:34
  */
 
-namespace Omadonex\ToolsW2p\Services\Licenser;
+namespace Omadonex\ToolsW2p\Services\License;
 
 use Illuminate\Redis\Connections\Connection;
-use Omadonex\ToolsW2p\Interfaces\Licenser\ILicenserRedisStorage;
+use Omadonex\ToolsW2p\Interfaces\License\ILicenseStorageBase;
 
-class LicenserRedisStorage implements ILicenserRedisStorage
+class LicenseStorageRedis implements ILicenseStorageBase
 {
     public $redisConnection;
 

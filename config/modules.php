@@ -104,7 +104,7 @@ return [
             'event' => ['path' => 'Events', 'generate' => false],
             'factory' => ['path' => 'Database/Factories', 'generate' => true],
             'filter' => ['path' => 'Http/Middleware', 'generate' => true],
-            'interfaces' => ['path' => 'Interfaces', 'generate' => true],
+            'interfaces' => ['path' => 'Interface', 'generate' => true],
             'jobs' => ['path' => 'Jobs', 'generate' => false],
             'lang' => ['path' => 'Resources/lang', 'generate' => true],
             'listener' => ['path' => 'Listeners', 'generate' => false],

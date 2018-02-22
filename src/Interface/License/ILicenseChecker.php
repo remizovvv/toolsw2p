@@ -6,9 +6,9 @@
  * Time: 21:34
  */
 
-namespace Omadonex\ToolsW2p\Interfaces\Licenser;
+namespace Omadonex\ToolsW2p\Interfaces\License;
 
-interface ILicenser
+interface ILicenseChecker
 {
     public function check();
 }
