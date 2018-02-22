@@ -6,12 +6,13 @@
  * Time: 21:34
  */
 
-namespace Omadonex\ToolsW2p\Interfaces;
+namespace Omadonex\ToolsW2p\Services\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotFoundException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
+use Omadonex\ToolsW2p\Interfaces\Model\IModelRepository;
 use Omadonex\ToolsW2p\Traits\CanBeActivatedTrait;
 use Omadonex\ToolsW2p\Transformers\PaginateResourceCollection;
 

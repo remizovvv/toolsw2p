@@ -6,7 +6,7 @@
  * Time: 21:34
  */
 
-namespace Omadonex\ToolsW2p\Interfaces;
+namespace Omadonex\ToolsW2p\Interfaces\Model;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;

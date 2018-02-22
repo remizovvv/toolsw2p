@@ -6,11 +6,13 @@
  * Time: 21:34
  */
 
-namespace Omadonex\ToolsW2p\Interfaces;
+namespace Omadonex\ToolsW2p\Services\Model;
 
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelCanNotBeActivatedException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelCanNotBeDeactivatedException;
 use Omadonex\ToolsW2p\Classes\Exceptions\W2pModelNotUsesTraitException;
+use Omadonex\ToolsW2p\Interfaces\Model\IModelRepository;
+use Omadonex\ToolsW2p\Interfaces\Model\IModelService;
 use Omadonex\ToolsW2p\Traits\CanBeActivatedTrait;
 
 abstract class ModelService implements IModelService
