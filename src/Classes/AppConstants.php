@@ -10,6 +10,8 @@ namespace Omadonex\ToolsW2p\Classes;
 
 class AppConstants
 {
+    const LENGTH_ACTIVATION_KEY = 64;
+
     const LICENSE_PERMISSION_CRM = 1;
     const LICENSE_PERMISSION_PRODUCTS = 2;
     const LICENSE_PERMISSION_EXCHANGE = 3;
