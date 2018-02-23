@@ -8,7 +8,7 @@
 
 namespace Omadonex\ToolsW2p\Classes\Utils;
 
-class CustomUtils
+class UtilsCustom
 {
 
     public static function random_str($length, $keySpace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')

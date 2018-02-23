@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controller;
-use Omadonex\ToolsW2p\Classes\Utils\ResponseJsonUtils;
+use Omadonex\ToolsW2p\Classes\Utils\UtilsResponseJson;
 
 class ApiBaseController extends Controller
 {
@@ -23,11 +23,11 @@ class ApiBaseController extends Controller
         if (($data instanceof Resource) || ($data instanceof ResourceCollection)) {
             $finalData = $data->toResponse($this->request)->getData();
         }
-        return ResponseJsonUtils::okResponse($finalData);
+        return UtilsResponseJson::okResponse($finalData);
     }
 
     protected function errorResponse($errorMsg = '')
     {
-        return ResponseJsonUtils::errorResponse($errorMsg);
+        return UtilsResponseJson::errorResponse($errorMsg);
     }
 }

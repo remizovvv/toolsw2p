@@ -8,7 +8,7 @@
 
 namespace Omadonex\ToolsW2p\Classes\Utils;
 
-class ResponseJsonUtils
+class UtilsResponseJson
 {
     const CODE_OK = 200;
     const CORE_ERROR = 422;
