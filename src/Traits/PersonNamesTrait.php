@@ -4,13 +4,20 @@ namespace Omadonex\ToolsW2p\Traits;
 
 trait PersonNamesTrait
 {
+    protected function getDefaultNameAttribute()
+    {
+        return 'Пользователь';
+    }
+
     /**
      * Полное обращение к человеку (Имя Фамилия и Отчество)
      * @return string
      */
     public function getFullNameAttribute()
     {
-        return $this->fname . ' ' . $this->sname . ' ' . $this->tname;
+        $str = $this->fname . ' ' . $this->sname . ' ' . $this->tname;
+
+        return $str ?: $this->getDefaultNameAttribute();
     }
 
     /**
@@ -19,7 +26,9 @@ trait PersonNamesTrait
      */
     public function getShortNameAttribute()
     {
-        return $this->fname . ' ' . $this->sname;
+        $str = $this->fname . ' ' . $this->sname;
+
+        return $str ?: $this->getDefaultNameAttribute();
     }
 
     /**
@@ -28,7 +37,9 @@ trait PersonNamesTrait
      */
     public function getOfficialNameAttribute()
     {
-        return $this->fname . ' ' . $this->tname;
+        $str = $this->fname . ' ' . $this->tname;
+
+        return $str ?: $this->getDefaultNameAttribute();
     }
 
     /**
@@ -37,6 +48,8 @@ trait PersonNamesTrait
      */
     public function getInitialsNameAttribute()
     {
-        return $this->sname . ' ' . $this->fname[0]  . '.' . $this->tname[0] . '.';
+        $str = $this->sname . ' ' . $this->fname[0]  . '.' . $this->tname[0] . '.';
+
+        return $str ?: $this->getDefaultNameAttribute();
     }
 }
