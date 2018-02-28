@@ -10,5 +10,5 @@ namespace Omadonex\ToolsW2p\Interfaces\Model;
 
 interface IModelLog
 {
-    public function saveToLog(IModelService $service);
+    public function saveToLog($model);
 }
