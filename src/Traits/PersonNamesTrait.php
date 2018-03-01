@@ -15,7 +15,7 @@ trait PersonNamesTrait
      */
     public function getFullNameAttribute()
     {
-        $str = $this->fname . ' ' . $this->sname . ' ' . $this->tname;
+        $str = trim($this->fname . ' ' . $this->sname . ' ' . $this->tname);
 
         return $str ?: $this->getDefaultNameAttribute();
     }
@@ -26,7 +26,7 @@ trait PersonNamesTrait
      */
     public function getShortNameAttribute()
     {
-        $str = $this->fname . ' ' . $this->sname;
+        $str = trim($this->fname . ' ' . $this->sname);
 
         return $str ?: $this->getDefaultNameAttribute();
     }
@@ -37,7 +37,7 @@ trait PersonNamesTrait
      */
     public function getOfficialNameAttribute()
     {
-        $str = $this->fname . ' ' . $this->tname;
+        $str = trim($this->fname . ' ' . $this->tname);
 
         return $str ?: $this->getDefaultNameAttribute();
     }
@@ -48,7 +48,14 @@ trait PersonNamesTrait
      */
     public function getInitialsNameAttribute()
     {
-        $str = $this->sname . ' ' . $this->fname[0]  . '.' . $this->tname[0] . '.';
+        $initials = '';
+        if ($this->fname) {
+            $initials .= $this->fname[0] . '.';
+        }
+        if ($this->tname) {
+            $initials .= $this->tname[0] . '.';
+        }
+        $str = trim($this->sname . ' ' . $initials);
 
         return $str ?: $this->getDefaultNameAttribute();
     }
