@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'name' => 'Laravel - лучший фреймворк для web девелоперов',
+    'name' => 'Web2Print',
 ];

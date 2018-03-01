@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'name' => 'Laravel - best framework for web artisans',
+    'name' => 'Web2Print',
 ];
