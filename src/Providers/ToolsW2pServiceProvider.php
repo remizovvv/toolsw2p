@@ -5,7 +5,6 @@ namespace Omadonex\ToolsW2p\Providers;
 use Omadonex\ToolsW2p\Commands\Publish;
 use Omadonex\ToolsW2p\Commands\ServiceMake;
 use Illuminate\Support\ServiceProvider;
-use Omadonex\ToolsW2p\Http\Middleware\ApiProtect;
 
 class ToolsW2pServiceProvider extends ServiceProvider
 {
@@ -43,6 +42,6 @@ class ToolsW2pServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['router']->aliasMiddleware('apiProtect', ApiProtect::class);
+
     }
 }
