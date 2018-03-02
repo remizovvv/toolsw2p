@@ -10,6 +10,7 @@ namespace Omadonex\ToolsW2p\Classes;
 
 class AppConstants
 {
+    const LENGTH_API_TOKEN = 64;
     const LENGTH_ACTIVATION_TOKEN = 64;
 
     const LICENSE_PERMISSION_CRM = 1;
