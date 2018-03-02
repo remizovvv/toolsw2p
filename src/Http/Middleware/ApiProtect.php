@@ -15,6 +15,15 @@ class ApiProtect
      */
     public function handle($request, Closure $next)
     {
+        $actions = $request->route()->getAction();
+        $routeProtected = !array_key_exists('apiProtect', $actions) || ($actions['apiProtect'] !== false);
+
+        if (!$routeProtected) {
+            return $next($request);
+        }
+
+        dd($request->api_token);
+
         return $next($request);
     }
 }

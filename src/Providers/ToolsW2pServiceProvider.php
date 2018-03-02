@@ -43,6 +43,6 @@ class ToolsW2pServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['router']->middleware('apiProtect', ApiProtect::class);
+        $this->app['router']->aliasMiddleware('apiProtect', ApiProtect::class);
     }
 }
