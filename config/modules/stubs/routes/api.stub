@@ -1,5 +1,0 @@
-<?php
-
-Route::group(['prefix' => 'api/v1/$LOWER_NAME$', 'namespace' => '$MODULE_NAMESPACE$\$STUDLY_NAME$\Http\Controllers\Api'], function() {
-
-});
