@@ -6,11 +6,11 @@
  * Time: 21:34
  */
 
-namespace Omadonex\ToolsW2p\Services\License;
+namespace Omadonex\ToolsW2p\Services\Subdomain;
 
-use Omadonex\ToolsW2p\Interfaces\License\ILicenseStorageBase;
+use Omadonex\ToolsW2p\Interfaces\Subdomain\ISubdomainStorageBase;
 
-class LicenseStorageFile implements ILicenseStorageBase
+class SubdomainStorageFile implements ISubdomainStorageBase
 {
     protected $paths;
 

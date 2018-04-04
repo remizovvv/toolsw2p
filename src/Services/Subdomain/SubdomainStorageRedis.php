@@ -6,12 +6,12 @@
  * Time: 21:34
  */
 
-namespace Omadonex\ToolsW2p\Services\License;
+namespace Omadonex\ToolsW2p\Services\Subdomain;
 
 use Illuminate\Redis\Connections\Connection;
-use Omadonex\ToolsW2p\Interfaces\License\ILicenseStorageBase;
+use Omadonex\ToolsW2p\Interfaces\Subdomain\ISubdomainStorageBase;
 
-class LicenseStorageRedis implements ILicenseStorageBase
+class SubdomainStorageRedis implements ISubdomainStorageBase
 {
     public $redisConnection;
 

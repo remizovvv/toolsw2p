@@ -6,9 +6,9 @@
  * Time: 21:34
  */
 
-namespace Omadonex\ToolsW2p\Interfaces\License;
+namespace Omadonex\ToolsW2p\Interfaces\Subdomain;
 
-interface ILicenseStorageBase
+interface ISubdomainStorageBase
 {
     public function get($recordType, $key);
 

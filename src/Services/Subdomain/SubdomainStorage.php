@@ -6,12 +6,12 @@
  * Time: 15:42
  */
 
-namespace Omadonex\ToolsW2p\Services\License;
+namespace Omadonex\ToolsW2p\Services\Subdomain;
 
 use Omadonex\ToolsW2p\Classes\AppConstants;
-use Omadonex\ToolsW2p\Interfaces\License\ILicenseStorage;
+use Omadonex\ToolsW2p\Interfaces\Subdomain\ISubdomainStorage;
 
-class LicenseStorage implements ILicenseStorage
+class SubdomainStorage implements ISubdomainStorage
 {
     const STORAGE_TYPE_FILE = 'file';
     const STORAGE_TYPE_REDIS = 'redis';
@@ -20,11 +20,11 @@ class LicenseStorage implements ILicenseStorage
     protected $storageRedis;
     protected $preferReadStorage;
 
-    public function __construct($paths, $redisConnection)
+    public function __construct($paths, $redisConnection, $preferReadStorage = self::STORAGE_TYPE_REDIS)
     {
-        $this->storageFile = new LicenseStorageFile($paths);
-        $this->storageRedis = new LicenseStorageRedis($redisConnection);
-        $this->preferReadStorage = self::STORAGE_TYPE_REDIS;
+        $this->storageFile = new SubdomainStorageFile($paths);
+        $this->storageRedis = new SubdomainStorageRedis($redisConnection);
+        $this->preferReadStorage = $preferReadStorage;
     }
 
     private function getPreferReadStorage()
@@ -66,61 +66,61 @@ class LicenseStorage implements ILicenseStorage
 
     public function clearLicenses()
     {
-        $this->clear(AppConstants::LICENSE_RECORD_TYPE_LICENSE);
+        $this->clear(AppConstants::SUBDOMAIN_RECORD_TYPE_LICENSE);
     }
 
     public function clearPermissions()
     {
-        $this->clear(AppConstants::LICENSE_RECORD_TYPE_PERMISSION);
+        $this->clear(AppConstants::SUBDOMAIN_RECORD_TYPE_PERMISSION);
     }
 
     public function clearTypographies()
     {
-        $this->clear(AppConstants::LICENSE_RECORD_TYPE_TYPOGRAPHY);
+        $this->clear(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY);
     }
 
     public function getLicense($key)
     {
-        return $this->get(AppConstants::LICENSE_RECORD_TYPE_LICENSE, $key);
+        return $this->get(AppConstants::SUBDOMAIN_RECORD_TYPE_LICENSE, $key);
     }
 
     public function getPermission($key)
     {
-        return $this->get(AppConstants::LICENSE_RECORD_TYPE_PERMISSION, $key);
+        return $this->get(AppConstants::SUBDOMAIN_RECORD_TYPE_PERMISSION, $key);
     }
 
     public function getTypography($key)
     {
-        return $this->get(AppConstants::LICENSE_RECORD_TYPE_TYPOGRAPHY, $key);
+        return $this->get(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY, $key);
     }
 
     public function removeLicense($key)
     {
-        $this->remove(AppConstants::LICENSE_RECORD_TYPE_LICENSE, $key);
+        $this->remove(AppConstants::SUBDOMAIN_RECORD_TYPE_LICENSE, $key);
     }
 
     public function removePermission($key)
     {
-        $this->remove(AppConstants::LICENSE_RECORD_TYPE_PERMISSION, $key);
+        $this->remove(AppConstants::SUBDOMAIN_RECORD_TYPE_PERMISSION, $key);
     }
 
     public function removeTypography($key)
     {
-        $this->remove(AppConstants::LICENSE_RECORD_TYPE_TYPOGRAPHY, $key);
+        $this->remove(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY, $key);
     }
 
     public function setLicense($key, $valueArr)
     {
-        $this->set(AppConstants::LICENSE_RECORD_TYPE_LICENSE, $key, $valueArr);
+        $this->set(AppConstants::SUBDOMAIN_RECORD_TYPE_LICENSE, $key, $valueArr);
     }
 
     public function setPermission($key, $valueArr)
     {
-        $this->set(AppConstants::LICENSE_RECORD_TYPE_PERMISSION, $key, $valueArr);
+        $this->set(AppConstants::SUBDOMAIN_RECORD_TYPE_PERMISSION, $key, $valueArr);
     }
 
     public function setTypography($key, $valueArr)
     {
-        $this->set(AppConstants::LICENSE_RECORD_TYPE_TYPOGRAPHY, $key, $valueArr);
+        $this->set(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY, $key, $valueArr);
     }
 }

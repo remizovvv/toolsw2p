@@ -6,9 +6,9 @@
  * Time: 21:34
  */
 
-namespace Omadonex\ToolsW2p\Interfaces\License;
+namespace Omadonex\ToolsW2p\Interfaces\Subdomain;
 
-interface ILicenseStorage extends ILicenseStorageBase
+interface ISubdomainStorage extends ISubdomainStorageBase
 {
     public function clearLicenses();
 
