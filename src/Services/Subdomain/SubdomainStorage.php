@@ -13,6 +13,13 @@ use Omadonex\ToolsW2p\Interfaces\Subdomain\ISubdomainStorage;
 
 class SubdomainStorage implements ISubdomainStorage
 {
+    /*
+     * Тут немного непонятно для чего нам нужно все эти данные хранить дополнительно в файле, если мы из в любом
+     * случае загружаем из Redis, может конечно произойти какая нибудь жесть на серваке и Redis затрется, но
+     * тогда можно его перезаполнить, например, с помощью artisan команды
+     * //TODO omadonex: подумать, оставлять файловый вариант или нет
+     */
+
     const STORAGE_TYPE_FILE = 'file';
     const STORAGE_TYPE_REDIS = 'redis';
 
