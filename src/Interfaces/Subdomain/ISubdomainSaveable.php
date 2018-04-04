@@ -8,7 +8,7 @@
 
 namespace Omadonex\ToolsW2p\Interfaces\Subdomain;
 
-interface ISubdomainLicenseSaveable
+interface ISubdomainSaveable
 {
-    public function saveToLicenseStorage(ISubdomainStorage $storage);
+    public function saveToSubdomainStorage(ISubdomainStorage $storage);
 }
