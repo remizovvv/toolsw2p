@@ -134,10 +134,16 @@ class SubdomainStorage implements ISubdomainStorage
 
     public function removeTypography($key)
     {
+        $typographyInfo = $this->getTypography($key);
+        if ($typographyInfo) {
+            foreach ($typographyInfo['aliases'] as $aliasKey) {
+                $this->removeAlias($aliasKey);
+            }
+        }
         $this->remove(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY, $key);
     }
 
-    public function remoteAlias($key)
+    public function removeAlias($key)
     {
         $this->remove(AppConstants::SUBDOMAIN_RECORD_TYPE_ALIAS, $key);
     }

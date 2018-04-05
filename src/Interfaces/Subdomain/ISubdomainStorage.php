@@ -32,7 +32,7 @@ interface ISubdomainStorage extends ISubdomainStorageBase
 
     public function removeTypography($key);
 
-    public function remoteAlias($key);
+    public function removeAlias($key);
 
     public function setLicense($key, $valueArr);
 
