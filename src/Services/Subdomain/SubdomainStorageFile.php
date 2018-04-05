@@ -34,7 +34,7 @@ class SubdomainStorageFile implements ISubdomainStorageBase
 
     }
 
-    public function clear($recordType)
+    public function clear($recordType = null)
     {
 
     }
