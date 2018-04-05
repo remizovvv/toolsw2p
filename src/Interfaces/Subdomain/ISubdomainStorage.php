@@ -40,5 +40,5 @@ interface ISubdomainStorage extends ISubdomainStorageBase
 
     public function setTypography($key, $valueArr);
 
-    public function setTypographyAlias($key, $typographyKey);
+    public function setAlias($key, $typographyKey);
 }

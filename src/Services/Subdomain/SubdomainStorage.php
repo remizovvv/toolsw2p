@@ -65,10 +65,16 @@ class SubdomainStorage implements ISubdomainStorage
         $this->storageRedis->remove($recordType, $key);
     }
 
-    public function clear($recordType)
+    public function clear($recordType = null)
     {
-        $this->storageFile->clear($recordType);
-        $this->storageRedis->clear($recordType);
+        if (!$recordType) {
+            $this->storageFile->clear($recordType);
+            $this->storageRedis->clear($recordType);
+        } else {
+            $this->clearLicenses();
+            $this->clearPermissions();
+            $this->clearTypographies();
+        }
     }
 
     public function clearLicenses()
@@ -84,6 +90,7 @@ class SubdomainStorage implements ISubdomainStorage
     public function clearTypographies()
     {
         $this->clear(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY);
+        $this->clearAliases();
     }
 
     public function clearAliases($typographyKey = null)
@@ -94,7 +101,7 @@ class SubdomainStorage implements ISubdomainStorage
             $typographyInfo = $this->getTypography($typographyKey);
             if ($typographyInfo) {
                 foreach ($typographyInfo['aliases'] as $aliasKey) {
-                    $this->remoteAlias($aliasKey);
+                    $this->removeAlias($aliasKey);
                 }
             }
         }
@@ -134,12 +141,7 @@ class SubdomainStorage implements ISubdomainStorage
 
     public function removeTypography($key)
     {
-        $typographyInfo = $this->getTypography($key);
-        if ($typographyInfo) {
-            foreach ($typographyInfo['aliases'] as $aliasKey) {
-                $this->removeAlias($aliasKey);
-            }
-        }
+        $this->clearAliases($key);
         $this->remove(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY, $key);
     }
 
@@ -163,7 +165,7 @@ class SubdomainStorage implements ISubdomainStorage
         $this->set(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY, $key, $valueArr);
     }
 
-    public function setTypographyAlias($key, $typographyKey)
+    public function setAlias($key, $typographyKey)
     {
         $this->set(AppConstants::SUBDOMAIN_RECORD_TYPE_ALIAS, $key, $typographyKey);
     }

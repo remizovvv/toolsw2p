@@ -16,5 +16,5 @@ interface ISubdomainStorageBase
 
     public function remove($recordType, $key);
 
-    public function clear($recordType);
+    public function clear($recordType = null);
 }
