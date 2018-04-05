@@ -16,11 +16,15 @@ interface ISubdomainStorage extends ISubdomainStorageBase
 
     public function clearTypographies();
 
+    public function clearAliases($typographyKey = null);
+
     public function getLicense($key);
 
     public function getPermission($key);
 
     public function getTypography($key);
+
+    public function getTypographyByAlias($key);
 
     public function removeLicense($key);
 
@@ -28,9 +32,13 @@ interface ISubdomainStorage extends ISubdomainStorageBase
 
     public function removeTypography($key);
 
+    public function remoteAlias($key);
+
     public function setLicense($key, $valueArr);
 
     public function setPermission($key, $valueArr);
 
     public function setTypography($key, $valueArr);
+
+    public function setTypographyAlias($key, $typographyKey);
 }

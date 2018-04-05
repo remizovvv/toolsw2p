@@ -86,6 +86,20 @@ class SubdomainStorage implements ISubdomainStorage
         $this->clear(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY);
     }
 
+    public function clearAliases($typographyKey = null)
+    {
+        if (!$typographyKey) {
+            $this->clear(AppConstants::SUBDOMAIN_RECORD_TYPE_ALIAS);
+        } else {
+            $typographyInfo = $this->getTypography($typographyKey);
+            if ($typographyInfo) {
+                foreach ($typographyInfo['aliases'] as $aliasKey) {
+                    $this->remoteAlias($aliasKey);
+                }
+            }
+        }
+    }
+
     public function getLicense($key)
     {
         return $this->get(AppConstants::SUBDOMAIN_RECORD_TYPE_LICENSE, $key);
@@ -99,6 +113,13 @@ class SubdomainStorage implements ISubdomainStorage
     public function getTypography($key)
     {
         return $this->get(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY, $key);
+    }
+
+    public function getTypographyByAlias($key)
+    {
+        $typographyKey = $this->get(AppConstants::SUBDOMAIN_RECORD_TYPE_ALIAS, $key);
+
+        return $this->get(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY, $typographyKey);
     }
 
     public function removeLicense($key)
@@ -116,6 +137,11 @@ class SubdomainStorage implements ISubdomainStorage
         $this->remove(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY, $key);
     }
 
+    public function remoteAlias($key)
+    {
+        $this->remove(AppConstants::SUBDOMAIN_RECORD_TYPE_ALIAS, $key);
+    }
+
     public function setLicense($key, $valueArr)
     {
         $this->set(AppConstants::SUBDOMAIN_RECORD_TYPE_LICENSE, $key, $valueArr);
@@ -129,5 +155,10 @@ class SubdomainStorage implements ISubdomainStorage
     public function setTypography($key, $valueArr)
     {
         $this->set(AppConstants::SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY, $key, $valueArr);
+    }
+
+    public function setTypographyAlias($key, $typographyKey)
+    {
+        $this->set(AppConstants::SUBDOMAIN_RECORD_TYPE_ALIAS, $key, $typographyKey);
     }
 }

@@ -18,6 +18,7 @@ class AppConstants
     const LICENSE_PERMISSION_EXCHANGE = 3;
 
     const SUBDOMAIN_RECORD_TYPE_TYPOGRAPHY = 'typography';
+    const SUBDOMAIN_RECORD_TYPE_ALIAS = 'alias';
     const SUBDOMAIN_RECORD_TYPE_LICENSE = 'license';
     const SUBDOMAIN_RECORD_TYPE_PERMISSION = 'permission';
 }
