@@ -67,7 +67,7 @@ class SubdomainStorage implements ISubdomainStorage
 
     public function clear($recordType = null)
     {
-        if (!$recordType) {
+        if ($recordType) {
             $this->storageFile->clear($recordType);
             $this->storageRedis->clear($recordType);
         } else {
