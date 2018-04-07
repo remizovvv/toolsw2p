@@ -40,7 +40,7 @@ class SubdomainStorageRedis implements ISubdomainStorageBase
         $pattern = (!$recordType) ? '*' : "{$recordType}_*";
         $keys = $this->redisConnection->keys($pattern);
         if (count($keys)) {
-            $this->redisConnection->del($this->redisConnection->keys($keys));
+            $this->redisConnection->del($keys);
         }
     }
 }
