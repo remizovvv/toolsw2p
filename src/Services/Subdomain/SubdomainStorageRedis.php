@@ -38,6 +38,9 @@ class SubdomainStorageRedis implements ISubdomainStorageBase
     public function clear($recordType = null)
     {
         $pattern = (!$recordType) ? '*' : "{$recordType}_*";
-        $this->redisConnection->del($this->redisConnection->keys($pattern));
+        $keys = $this->redisConnection->keys($pattern);
+        if (count($keys)) {
+            $this->redisConnection->del($this->redisConnection->keys($keys));
+        }
     }
 }
