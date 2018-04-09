@@ -21,4 +21,6 @@ class AppConstants
     const SUBDOMAIN_RECORD_TYPE_ALIAS = 'alias';
     const SUBDOMAIN_RECORD_TYPE_LICENSE = 'license';
     const SUBDOMAIN_RECORD_TYPE_PERMISSION = 'permission';
+
+    const MAIN_DATA = 'mainData';
 }
